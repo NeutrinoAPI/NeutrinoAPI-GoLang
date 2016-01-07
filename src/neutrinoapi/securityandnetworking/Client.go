@@ -1,7 +1,7 @@
 /*
  * neutrinoapi
  *
- * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 12/10/2015
+ * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 01/07/2016
  */
 package securityandnetworking
 
@@ -23,7 +23,7 @@ type SECURITYANDNETWORKING_IMPL struct { }
  * @param    string        url               parameter: Required
  * @return	Returns the *models.URLInfoResponse response from the API call
  */
-func (me *SECURITYANDNETWORKING_IMPL) CreateURLInfo (
+func (me *SECURITYANDNETWORKING_IMPL) URLInfo (
             fetchContent bool,
             url string) (*models.URLInfoResponse, error) {
     //the base uri for api requests
@@ -102,7 +102,7 @@ func (me *SECURITYANDNETWORKING_IMPL) CreateURLInfo (
  * @param    string        host            parameter: Required
  * @return	Returns the *models.HostReputationResponse response from the API call
  */
-func (me *SECURITYANDNETWORKING_IMPL) CreateHostReputation (
+func (me *SECURITYANDNETWORKING_IMPL) HostReputation (
             host string) (*models.HostReputationResponse, error) {
     //the base uri for api requests
     queryBuilder := neutrinoapi.BASEURI;
@@ -179,7 +179,7 @@ func (me *SECURITYANDNETWORKING_IMPL) CreateHostReputation (
  * @param    string        ip              parameter: Required
  * @return	Returns the *models.IPBlocklistResponse response from the API call
  */
-func (me *SECURITYANDNETWORKING_IMPL) CreateIPBlocklist (
+func (me *SECURITYANDNETWORKING_IMPL) IPBlocklist (
             ip string) (*models.IPBlocklistResponse, error) {
     //the base uri for api requests
     queryBuilder := neutrinoapi.BASEURI;

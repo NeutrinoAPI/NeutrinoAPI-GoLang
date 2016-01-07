@@ -1,7 +1,7 @@
 /*
  * neutrinoapi
  *
- * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 12/10/2015
+ * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 01/07/2016
  */
 
 package imaging
@@ -11,13 +11,13 @@ package imaging
  * Interface for the IMAGING_IMPL
  */
 type IMAGING interface {
-    CreateQRCode (string, *string, *string, *int, *int) ([]byte, error)
+    QRCode (string, *string, *string, *int, *int) ([]byte, error)
 
-    CreateHTMLToPDF (string, *int, *int, *string) ([]byte, error)
+    HTMLToPDF (string, *int, *int, *string) ([]byte, error)
 
-    CreateImageResize (int, string, int, *string) ([]byte, error)
+    ImageResize (int, string, int, *string) ([]byte, error)
 
-    CreateImageWatermark (string, string, *string, *int, *int, *string, *int) ([]byte, error)
+    ImageWatermark (string, string, *string, *int, *int, *string, *int) ([]byte, error)
 }
 
 /*

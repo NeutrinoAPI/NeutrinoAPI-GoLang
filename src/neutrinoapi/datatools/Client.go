@@ -1,7 +1,7 @@
 /*
  * neutrinoapi
  *
- * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 12/10/2015
+ * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 01/07/2016
  */
 package datatools
 
@@ -23,7 +23,7 @@ type DATATOOLS_IMPL struct { }
  * @param    *string        countryCode      parameter: Optional
  * @return	Returns the *models.PhoneValidateResponse response from the API call
  */
-func (me *DATATOOLS_IMPL) CreatePhoneValidate (
+func (me *DATATOOLS_IMPL) PhoneValidate (
             number string,
             countryCode *string) (*models.PhoneValidateResponse, error) {
     //the base uri for api requests
@@ -102,7 +102,7 @@ func (me *DATATOOLS_IMPL) CreatePhoneValidate (
  * @param    string        userAgent       parameter: Required
  * @return	Returns the *models.UserAgentInfoResponse response from the API call
  */
-func (me *DATATOOLS_IMPL) CreateUserAgentInfo (
+func (me *DATATOOLS_IMPL) UserAgentInfo (
             userAgent string) (*models.UserAgentInfoResponse, error) {
     //the base uri for api requests
     queryBuilder := neutrinoapi.BASEURI;
@@ -181,7 +181,7 @@ func (me *DATATOOLS_IMPL) CreateUserAgentInfo (
  * @param    *bool         addKeywordLinks       parameter: Optional
  * @return	Returns the []byte response from the API call
  */
-func (me *DATATOOLS_IMPL) CreateCodeHighlight (
+func (me *DATATOOLS_IMPL) CodeHighlight (
             content string,
             mtype string,
             addKeywordLinks *bool) ([]byte, error) {
@@ -254,7 +254,7 @@ func (me *DATATOOLS_IMPL) CreateCodeHighlight (
  * @param    *string        censorCharacter      parameter: Optional
  * @return	Returns the *models.BadWordFilterResponse response from the API call
  */
-func (me *DATATOOLS_IMPL) CreateBadWordFilter (
+func (me *DATATOOLS_IMPL) BadWordFilter (
             content string,
             censorCharacter *string) (*models.BadWordFilterResponse, error) {
     //the base uri for api requests
@@ -335,7 +335,7 @@ func (me *DATATOOLS_IMPL) CreateBadWordFilter (
  * @param    string        toType          parameter: Required
  * @return	Returns the *models.ConvertResponse response from the API call
  */
-func (me *DATATOOLS_IMPL) CreateConvert (
+func (me *DATATOOLS_IMPL) Convert (
             fromType string,
             fromValue string,
             toType string) (*models.ConvertResponse, error) {
@@ -417,7 +417,7 @@ func (me *DATATOOLS_IMPL) CreateConvert (
  * @param    *bool         fixTypos        parameter: Optional
  * @return	Returns the *models.EmailValidateResponse response from the API call
  */
-func (me *DATATOOLS_IMPL) CreateEmailValidate (
+func (me *DATATOOLS_IMPL) EmailValidate (
             email string,
             fixTypos *bool) (*models.EmailValidateResponse, error) {
     //the base uri for api requests
@@ -497,7 +497,7 @@ func (me *DATATOOLS_IMPL) CreateEmailValidate (
  * @param    string        outputType      parameter: Required
  * @return	Returns the []byte response from the API call
  */
-func (me *DATATOOLS_IMPL) CreateHTMLClean (
+func (me *DATATOOLS_IMPL) HTMLClean (
             content string,
             outputType string) ([]byte, error) {
     //the base uri for api requests
@@ -570,7 +570,7 @@ func (me *DATATOOLS_IMPL) CreateHTMLClean (
  * @param    *string        baseUrl         parameter: Optional
  * @return	Returns the *models.HTMLExtractResponse response from the API call
  */
-func (me *DATATOOLS_IMPL) CreateHTMLExtract (
+func (me *DATATOOLS_IMPL) HTMLExtract (
             content string,
             tag string,
             attribute *string,

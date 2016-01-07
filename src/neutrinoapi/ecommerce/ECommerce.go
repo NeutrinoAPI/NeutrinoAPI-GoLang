@@ -1,7 +1,7 @@
 /*
  * neutrinoapi
  *
- * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 12/10/2015
+ * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 01/07/2016
  */
 
 package ecommerce
@@ -13,7 +13,7 @@ import "neutrinoapi/models"
  * Interface for the ECOMMERCE_IMPL
  */
 type ECOMMERCE interface {
-    CreateBINLookup (string, *string) (*models.BINLookupResponse, error)
+    BINLookup (string, *string) (*models.BINLookupResponse, error)
 }
 
 /*

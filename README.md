@@ -1,4 +1,4 @@
-Neutrinoapi
+NeutrinoAPI
 =================
 Welcome to the Neutrino API Go SDK. See: https://www.neutrinoapi.com/
 

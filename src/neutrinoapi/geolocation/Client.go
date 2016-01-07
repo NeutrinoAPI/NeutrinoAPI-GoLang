@@ -1,7 +1,7 @@
 /*
  * neutrinoapi
  *
- * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 12/10/2015
+ * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 01/07/2016
  */
 package geolocation
 
@@ -23,7 +23,7 @@ type GEOLOCATION_IMPL struct { }
  * @param    *bool         reverseLookup      parameter: Optional
  * @return	Returns the *models.IPInfoResponse response from the API call
  */
-func (me *GEOLOCATION_IMPL) CreateIPInfo (
+func (me *GEOLOCATION_IMPL) IPInfo (
             ip string,
             reverseLookup *bool) (*models.IPInfoResponse, error) {
     //the base uri for api requests
@@ -104,7 +104,7 @@ func (me *GEOLOCATION_IMPL) CreateIPInfo (
  * @param    *string        languageCode      parameter: Optional
  * @return	Returns the *models.GeocodeAddressResponse response from the API call
  */
-func (me *GEOLOCATION_IMPL) CreateGeocodeAddress (
+func (me *GEOLOCATION_IMPL) GeocodeAddress (
             address string,
             countryCode *string,
             languageCode *string) (*models.GeocodeAddressResponse, error) {
@@ -187,7 +187,7 @@ func (me *GEOLOCATION_IMPL) CreateGeocodeAddress (
  * @param    *string        languageCode      parameter: Optional
  * @return	Returns the *models.GeocodeReverseResponse response from the API call
  */
-func (me *GEOLOCATION_IMPL) CreateGeocodeReverse (
+func (me *GEOLOCATION_IMPL) GeocodeReverse (
             latitude float32,
             longitude float32,
             languageCode *string) (*models.GeocodeReverseResponse, error) {

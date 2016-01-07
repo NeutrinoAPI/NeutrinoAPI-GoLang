@@ -1,7 +1,7 @@
 /*
  * neutrinoapi
  *
- * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 12/10/2015
+ * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 01/07/2016
  */
 package imaging
 
@@ -25,7 +25,7 @@ type IMAGING_IMPL struct { }
  * @param    *int           width        parameter: Optional
  * @return	Returns the []byte response from the API call
  */
-func (me *IMAGING_IMPL) CreateQRCode (
+func (me *IMAGING_IMPL) QRCode (
             content string,
             bgColor *string,
             fgColor *string,
@@ -104,7 +104,7 @@ func (me *IMAGING_IMPL) CreateQRCode (
  * @param    *string        title          parameter: Optional
  * @return	Returns the []byte response from the API call
  */
-func (me *IMAGING_IMPL) CreateHTMLToPDF (
+func (me *IMAGING_IMPL) HTMLToPDF (
             content string,
             htmlWidth *int,
             margin *int,
@@ -181,7 +181,7 @@ func (me *IMAGING_IMPL) CreateHTMLToPDF (
  * @param    *string        format        parameter: Optional
  * @return	Returns the []byte response from the API call
  */
-func (me *IMAGING_IMPL) CreateImageResize (
+func (me *IMAGING_IMPL) ImageResize (
             height int,
             imageUrl string,
             width int,
@@ -261,7 +261,7 @@ func (me *IMAGING_IMPL) CreateImageResize (
  * @param    *int           width             parameter: Optional
  * @return	Returns the []byte response from the API call
  */
-func (me *IMAGING_IMPL) CreateImageWatermark (
+func (me *IMAGING_IMPL) ImageWatermark (
             imageUrl string,
             watermarkUrl string,
             format *string,

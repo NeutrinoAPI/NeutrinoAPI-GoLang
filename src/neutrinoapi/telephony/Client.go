@@ -1,7 +1,7 @@
 /*
  * neutrinoapi
  *
- * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 12/10/2015
+ * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 01/07/2016
  */
 package telephony
 
@@ -23,7 +23,7 @@ type TELEPHONY_IMPL struct { }
  * @param    string        number          parameter: Required
  * @return	Returns the *models.PhonePlaybackResponse response from the API call
  */
-func (me *TELEPHONY_IMPL) CreatePhonePlayback (
+func (me *TELEPHONY_IMPL) PhonePlayback (
             audioUrl string,
             number string) (*models.PhonePlaybackResponse, error) {
     //the base uri for api requests
@@ -102,7 +102,7 @@ func (me *TELEPHONY_IMPL) CreatePhonePlayback (
  * @param    int           securityCode      parameter: Required
  * @return	Returns the *models.VerifySecurityCodeResponse response from the API call
  */
-func (me *TELEPHONY_IMPL) CreateVerifySecurityCode (
+func (me *TELEPHONY_IMPL) VerifySecurityCode (
             securityCode int) (*models.VerifySecurityCodeResponse, error) {
     //the base uri for api requests
     queryBuilder := neutrinoapi.BASEURI;
@@ -180,7 +180,7 @@ func (me *TELEPHONY_IMPL) CreateVerifySecurityCode (
  * @param    *string        countryCode      parameter: Optional
  * @return	Returns the *models.HLRLookupResponse response from the API call
  */
-func (me *TELEPHONY_IMPL) CreateHLRLookup (
+func (me *TELEPHONY_IMPL) HLRLookup (
             number string,
             countryCode *string) (*models.HLRLookupResponse, error) {
     //the base uri for api requests
@@ -264,7 +264,7 @@ func (me *TELEPHONY_IMPL) CreateHLRLookup (
  * @param    *int           securityCode       parameter: Optional
  * @return	Returns the *models.PhoneVerifyResponse response from the API call
  */
-func (me *TELEPHONY_IMPL) CreatePhoneVerify (
+func (me *TELEPHONY_IMPL) PhoneVerify (
             number string,
             codeLength *int,
             countryCode *string,
@@ -355,7 +355,7 @@ func (me *TELEPHONY_IMPL) CreatePhoneVerify (
  * @param    *int           securityCode      parameter: Optional
  * @return	Returns the *models.SMSVerifyResponse response from the API call
  */
-func (me *TELEPHONY_IMPL) CreateSMSVerify (
+func (me *TELEPHONY_IMPL) SMSVerify (
             number string,
             codeLength *int,
             countryCode *string,

@@ -1,7 +1,7 @@
 /*
  * neutrinoapi
  *
- * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 12/10/2015
+ * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 01/07/2016
  */
 
 package securityandnetworking
@@ -13,11 +13,11 @@ import "neutrinoapi/models"
  * Interface for the SECURITYANDNETWORKING_IMPL
  */
 type SECURITYANDNETWORKING interface {
-    CreateURLInfo (bool, string) (*models.URLInfoResponse, error)
+    URLInfo (bool, string) (*models.URLInfoResponse, error)
 
-    CreateHostReputation (string) (*models.HostReputationResponse, error)
+    HostReputation (string) (*models.HostReputationResponse, error)
 
-    CreateIPBlocklist (string) (*models.IPBlocklistResponse, error)
+    IPBlocklist (string) (*models.IPBlocklistResponse, error)
 }
 
 /*

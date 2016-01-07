@@ -1,7 +1,7 @@
 /*
  * neutrinoapi
  *
- * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 12/10/2015
+ * This file was automatically generated for NeutrinoAPI.com by APIMATIC BETA v2.0 on 01/07/2016
  */
 package ecommerce
 
@@ -23,7 +23,7 @@ type ECOMMERCE_IMPL struct { }
  * @param    *string        customerIp      parameter: Optional
  * @return	Returns the *models.BINLookupResponse response from the API call
  */
-func (me *ECOMMERCE_IMPL) CreateBINLookup (
+func (me *ECOMMERCE_IMPL) BINLookup (
             binNumber string,
             customerIp *string) (*models.BINLookupResponse, error) {
     //the base uri for api requests
