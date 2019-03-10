@@ -1,7 +1,7 @@
 /*
  * neutrinoapi_lib
  *
- * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io )
+ * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 package securityandnetworking_pkg
@@ -13,9 +13,7 @@ import "neutrinoapi_lib/configuration_pkg"
  * Interface for the SECURITYANDNETWORKING_IMPL
  */
 type SECURITYANDNETWORKING interface {
-    HostReputation (string) (*models_pkg.HostReputationResponse, error)
-
-    URLInfo (string, bool) (*models_pkg.URLInfoResponse, error)
+    HostReputation (string, *int64) (*models_pkg.HostReputationResponse, error)
 
     IPProbe (string) (*models_pkg.IPProbeResponse, error)
 

@@ -1,13 +1,15 @@
 /*
  * neutrinoapi_lib
  *
- * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io )
+ * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 package geolocation_pkg
 
 
 import(
+	"errors"
+	"fmt"
 	"encoding/json"
 	"neutrinoapi_lib/models_pkg"
 	"github.com/apimatic/unirest-go"
@@ -22,24 +24,27 @@ type GEOLOCATION_IMPL struct {
 }
 
 /**
- * Convert a geographic coordinate (latitude and longitude) into a real world address or location.
- * @param    float64        latitude          parameter: Required
- * @param    float64        longitude         parameter: Required
+ * Convert a geographic coordinate (latitude and longitude) into a real world address or location. See: https://www.neutrinoapi.com/api/geocode-reverse/
+ * @param    string         latitude          parameter: Required
+ * @param    string         longitude         parameter: Required
  * @param    *string        languageCode      parameter: Optional
  * @return	Returns the *models_pkg.GeocodeReverseResponse response from the API call
  */
 func (me *GEOLOCATION_IMPL) GeocodeReverse (
-            latitude float64,
-            longitude float64,
+            latitude string,
+            longitude string,
             languageCode *string) (*models_pkg.GeocodeReverseResponse, error) {
-        //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/geocode-reverse"
+    //the endpoint path uri
+    _pathUrl := "/geocode-reverse"
 
     //variable to hold errors
     var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
         "user-id" : neutrinoapi_lib.config.UserId,
@@ -56,7 +61,6 @@ func (me *GEOLOCATION_IMPL) GeocodeReverse (
         //error in url validation or cleaning
         return nil, err
     }
-
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
         "user-agent" : "APIMATIC 2.0",
@@ -77,7 +81,7 @@ func (me *GEOLOCATION_IMPL) GeocodeReverse (
     //prepare API request
     _request := unirest.Post(_queryBuilder, headers, parameters)
     //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
+    _response, err := unirest.AsString(_request,false);
     if err != nil {
         //error in API invocation
         return nil, err
@@ -92,7 +96,7 @@ func (me *GEOLOCATION_IMPL) GeocodeReverse (
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-        }
+    }
     if(err != nil) {
         //error detected in status code validation
         return nil, err
@@ -111,7 +115,7 @@ func (me *GEOLOCATION_IMPL) GeocodeReverse (
 }
 
 /**
- * Get location information about an IP address and do reverse DNS (PTR) lookups.
+ * Get location information about an IP address and do reverse DNS (PTR) lookups. See: https://www.neutrinoapi.com/api/ip-info/
  * @param    string        ip                 parameter: Required
  * @param    *bool         reverseLookup      parameter: Optional
  * @return	Returns the *models_pkg.IPInfoResponse response from the API call
@@ -119,14 +123,17 @@ func (me *GEOLOCATION_IMPL) GeocodeReverse (
 func (me *GEOLOCATION_IMPL) IPInfo (
             ip string,
             reverseLookup *bool) (*models_pkg.IPInfoResponse, error) {
-        //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/ip-info"
+    //the endpoint path uri
+    _pathUrl := "/ip-info"
 
     //variable to hold errors
     var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
         "user-id" : neutrinoapi_lib.config.UserId,
@@ -143,7 +150,6 @@ func (me *GEOLOCATION_IMPL) IPInfo (
         //error in url validation or cleaning
         return nil, err
     }
-
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
         "user-agent" : "APIMATIC 2.0",
@@ -163,7 +169,7 @@ func (me *GEOLOCATION_IMPL) IPInfo (
     //prepare API request
     _request := unirest.Post(_queryBuilder, headers, parameters)
     //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
+    _response, err := unirest.AsString(_request,false);
     if err != nil {
         //error in API invocation
         return nil, err
@@ -178,7 +184,7 @@ func (me *GEOLOCATION_IMPL) IPInfo (
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-        }
+    }
     if(err != nil) {
         //error detected in status code validation
         return nil, err
@@ -197,7 +203,7 @@ func (me *GEOLOCATION_IMPL) IPInfo (
 }
 
 /**
- * Geocode an address, partial address or the name of a location
+ * Geocode an address, partial address or just the name of a place. See: https://www.neutrinoapi.com/api/geocode-address/
  * @param    string         address           parameter: Required
  * @param    *string        countryCode       parameter: Optional
  * @param    *string        languageCode      parameter: Optional
@@ -209,14 +215,17 @@ func (me *GEOLOCATION_IMPL) GeocodeAddress (
             countryCode *string,
             languageCode *string,
             fuzzySearch *bool) (*models_pkg.GeocodeAddressResponse, error) {
-        //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/geocode-address"
+    //the endpoint path uri
+    _pathUrl := "/geocode-address"
 
     //variable to hold errors
     var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
         "user-id" : neutrinoapi_lib.config.UserId,
@@ -233,7 +242,6 @@ func (me *GEOLOCATION_IMPL) GeocodeAddress (
         //error in url validation or cleaning
         return nil, err
     }
-
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
         "user-agent" : "APIMATIC 2.0",
@@ -255,7 +263,7 @@ func (me *GEOLOCATION_IMPL) GeocodeAddress (
     //prepare API request
     _request := unirest.Post(_queryBuilder, headers, parameters)
     //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
+    _response, err := unirest.AsString(_request,false);
     if err != nil {
         //error in API invocation
         return nil, err
@@ -270,7 +278,7 @@ func (me *GEOLOCATION_IMPL) GeocodeAddress (
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-        }
+    }
     if(err != nil) {
         //error detected in status code validation
         return nil, err

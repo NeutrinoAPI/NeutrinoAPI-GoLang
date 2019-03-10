@@ -1,7 +1,7 @@
 /*
  * neutrinoapi_lib
  *
- * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io )
+ * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 package apihelper_pkg

@@ -1,13 +1,15 @@
 /*
  * neutrinoapi_lib
  *
- * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io )
+ * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 package telephony_pkg
 
 
 import(
+	"errors"
+	"fmt"
 	"encoding/json"
 	"neutrinoapi_lib/models_pkg"
 	"github.com/apimatic/unirest-go"
@@ -22,7 +24,7 @@ type TELEPHONY_IMPL struct {
 }
 
 /**
- * Connect to the global mobile cellular network and retrieve the status of a mobile device
+ * Connect to the global mobile cellular network and retrieve the status of a mobile device. See: https://www.neutrinoapi.com/api/hlr-lookup/
  * @param    string         number           parameter: Required
  * @param    *string        countryCode      parameter: Optional
  * @return	Returns the *models_pkg.HLRLookupResponse response from the API call
@@ -30,14 +32,17 @@ type TELEPHONY_IMPL struct {
 func (me *TELEPHONY_IMPL) HLRLookup (
             number string,
             countryCode *string) (*models_pkg.HLRLookupResponse, error) {
-        //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/hlr-lookup"
+    //the endpoint path uri
+    _pathUrl := "/hlr-lookup"
 
     //variable to hold errors
     var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
         "user-id" : neutrinoapi_lib.config.UserId,
@@ -54,7 +59,6 @@ func (me *TELEPHONY_IMPL) HLRLookup (
         //error in url validation or cleaning
         return nil, err
     }
-
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
         "user-agent" : "APIMATIC 2.0",
@@ -74,7 +78,7 @@ func (me *TELEPHONY_IMPL) HLRLookup (
     //prepare API request
     _request := unirest.Post(_queryBuilder, headers, parameters)
     //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
+    _response, err := unirest.AsString(_request,false);
     if err != nil {
         //error in API invocation
         return nil, err
@@ -89,7 +93,7 @@ func (me *TELEPHONY_IMPL) HLRLookup (
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-        }
+    }
     if(err != nil) {
         //error detected in status code validation
         return nil, err
@@ -108,7 +112,7 @@ func (me *TELEPHONY_IMPL) HLRLookup (
 }
 
 /**
- * Make an automated call to any valid phone number and playback an audio message
+ * Make an automated call to any valid phone number and playback an audio message. See: https://www.neutrinoapi.com/api/phone-playback/
  * @param    string        number          parameter: Required
  * @param    string        audioUrl        parameter: Required
  * @return	Returns the *models_pkg.PhonePlaybackResponse response from the API call
@@ -116,14 +120,17 @@ func (me *TELEPHONY_IMPL) HLRLookup (
 func (me *TELEPHONY_IMPL) PhonePlayback (
             number string,
             audioUrl string) (*models_pkg.PhonePlaybackResponse, error) {
-        //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/phone-playback"
+    //the endpoint path uri
+    _pathUrl := "/phone-playback"
 
     //variable to hold errors
     var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
         "user-id" : neutrinoapi_lib.config.UserId,
@@ -140,7 +147,6 @@ func (me *TELEPHONY_IMPL) PhonePlayback (
         //error in url validation or cleaning
         return nil, err
     }
-
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
         "user-agent" : "APIMATIC 2.0",
@@ -160,7 +166,7 @@ func (me *TELEPHONY_IMPL) PhonePlayback (
     //prepare API request
     _request := unirest.Post(_queryBuilder, headers, parameters)
     //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
+    _response, err := unirest.AsString(_request,false);
     if err != nil {
         //error in API invocation
         return nil, err
@@ -175,7 +181,7 @@ func (me *TELEPHONY_IMPL) PhonePlayback (
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-        }
+    }
     if(err != nil) {
         //error detected in status code validation
         return nil, err
@@ -194,20 +200,23 @@ func (me *TELEPHONY_IMPL) PhonePlayback (
 }
 
 /**
- * Check if a security code from one of the verify APIs is valid
- * @param    int64         securityCode      parameter: Required
+ * Check if a security code from one of the verify APIs is valid. See: https://www.neutrinoapi.com/api/verify-security-code/
+ * @param    string        securityCode      parameter: Required
  * @return	Returns the *models_pkg.VerifySecurityCodeResponse response from the API call
  */
 func (me *TELEPHONY_IMPL) VerifySecurityCode (
-            securityCode int64) (*models_pkg.VerifySecurityCodeResponse, error) {
-        //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/verify-security-code"
+            securityCode string) (*models_pkg.VerifySecurityCodeResponse, error) {
+    //the endpoint path uri
+    _pathUrl := "/verify-security-code"
 
     //variable to hold errors
     var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
         "user-id" : neutrinoapi_lib.config.UserId,
@@ -224,7 +233,6 @@ func (me *TELEPHONY_IMPL) VerifySecurityCode (
         //error in url validation or cleaning
         return nil, err
     }
-
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
         "user-agent" : "APIMATIC 2.0",
@@ -243,7 +251,7 @@ func (me *TELEPHONY_IMPL) VerifySecurityCode (
     //prepare API request
     _request := unirest.Post(_queryBuilder, headers, parameters)
     //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
+    _response, err := unirest.AsString(_request,false);
     if err != nil {
         //error in API invocation
         return nil, err
@@ -258,7 +266,7 @@ func (me *TELEPHONY_IMPL) VerifySecurityCode (
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-        }
+    }
     if(err != nil) {
         //error detected in status code validation
         return nil, err
@@ -277,7 +285,7 @@ func (me *TELEPHONY_IMPL) VerifySecurityCode (
 }
 
 /**
- * Send a unique security code to any mobile device via SMS
+ * Send a unique security code to any mobile device via SMS. See: https://www.neutrinoapi.com/api/sms-verify/
  * @param    string         number            parameter: Required
  * @param    *int64         codeLength        parameter: Optional
  * @param    *int64         securityCode      parameter: Optional
@@ -291,14 +299,17 @@ func (me *TELEPHONY_IMPL) SMSVerify (
             securityCode *int64,
             countryCode *string,
             languageCode *string) (*models_pkg.SMSVerifyResponse, error) {
-        //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/sms-verify"
+    //the endpoint path uri
+    _pathUrl := "/sms-verify"
 
     //variable to hold errors
     var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
         "user-id" : neutrinoapi_lib.config.UserId,
@@ -315,7 +326,6 @@ func (me *TELEPHONY_IMPL) SMSVerify (
         //error in url validation or cleaning
         return nil, err
     }
-
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
         "user-agent" : "APIMATIC 2.0",
@@ -338,7 +348,7 @@ func (me *TELEPHONY_IMPL) SMSVerify (
     //prepare API request
     _request := unirest.Post(_queryBuilder, headers, parameters)
     //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
+    _response, err := unirest.AsString(_request,false);
     if err != nil {
         //error in API invocation
         return nil, err
@@ -353,7 +363,7 @@ func (me *TELEPHONY_IMPL) SMSVerify (
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-        }
+    }
     if(err != nil) {
         //error detected in status code validation
         return nil, err
@@ -372,30 +382,27 @@ func (me *TELEPHONY_IMPL) SMSVerify (
 }
 
 /**
- * Make an automated call to any valid phone number and playback a unique security code
- * @param    string         number             parameter: Required
- * @param    *int64         codeLength         parameter: Optional
- * @param    *int64         securityCode       parameter: Optional
- * @param    *int64         playbackDelay      parameter: Optional
- * @param    *string        countryCode        parameter: Optional
- * @param    *string        languageCode       parameter: Optional
- * @return	Returns the *models_pkg.PhoneVerifyResponse response from the API call
+ * Send a free-form message to any mobile device via SMS. See: https://www.neutrinoapi.com/api/sms-message/
+ * @param    string         number           parameter: Required
+ * @param    string         message          parameter: Required
+ * @param    *string        countryCode      parameter: Optional
+ * @return	Returns the *models_pkg.SMSMessageResponse response from the API call
  */
-func (me *TELEPHONY_IMPL) PhoneVerify (
+func (me *TELEPHONY_IMPL) SMSMessage (
             number string,
-            codeLength *int64,
-            securityCode *int64,
-            playbackDelay *int64,
-            countryCode *string,
-            languageCode *string) (*models_pkg.PhoneVerifyResponse, error) {
-        //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/phone-verify"
+            message string,
+            countryCode *string) (*models_pkg.SMSMessageResponse, error) {
+    //the endpoint path uri
+    _pathUrl := "/sms-message"
 
     //variable to hold errors
     var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
         "user-id" : neutrinoapi_lib.config.UserId,
@@ -412,7 +419,103 @@ func (me *TELEPHONY_IMPL) PhoneVerify (
         //error in url validation or cleaning
         return nil, err
     }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "APIMATIC 2.0",
+        "accept" : "application/json",
+    }
 
+    //form parameters
+    parameters := map[string]interface{} {
+
+        "output-case" : "camel",
+        "number" : number,
+        "message" : message,
+        "country-code" : countryCode,
+
+    }
+
+
+    //prepare API request
+    _request := unirest.Post(_queryBuilder, headers, parameters)
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,false);
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 400) {
+        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check the error code for details", _response.Code, _response.RawBody)
+    } else if (_response.Code == 403) {
+        err = apihelper_pkg.NewAPIError("You have failed to authenticate or are using an invalid API path", _response.Code, _response.RawBody)
+    } else if (_response.Code == 500) {
+        err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal *models_pkg.SMSMessageResponse = &models_pkg.SMSMessageResponse{}
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
+
+}
+
+/**
+ * Make an automated call to any valid phone number and playback a unique security code. See: https://www.neutrinoapi.com/api/phone-verify/
+ * @param    string         number             parameter: Required
+ * @param    *int64         codeLength         parameter: Optional
+ * @param    *int64         securityCode       parameter: Optional
+ * @param    *int64         playbackDelay      parameter: Optional
+ * @param    *string        countryCode        parameter: Optional
+ * @param    *string        languageCode       parameter: Optional
+ * @return	Returns the *models_pkg.PhoneVerifyResponse response from the API call
+ */
+func (me *TELEPHONY_IMPL) PhoneVerify (
+            number string,
+            codeLength *int64,
+            securityCode *int64,
+            playbackDelay *int64,
+            countryCode *string,
+            languageCode *string) (*models_pkg.PhoneVerifyResponse, error) {
+    //the endpoint path uri
+    _pathUrl := "/phone-verify"
+
+    //variable to hold errors
+    var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //process optional query parameters
+    _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
+        "user-id" : neutrinoapi_lib.config.UserId,
+        "api-key" : neutrinoapi_lib.config.ApiKey,
+    })
+    if err != nil {
+        //error in query param handling
+        return nil, err
+    }
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
         "user-agent" : "APIMATIC 2.0",
@@ -436,7 +539,7 @@ func (me *TELEPHONY_IMPL) PhoneVerify (
     //prepare API request
     _request := unirest.Post(_queryBuilder, headers, parameters)
     //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
+    _response, err := unirest.AsString(_request,false);
     if err != nil {
         //error in API invocation
         return nil, err
@@ -451,7 +554,7 @@ func (me *TELEPHONY_IMPL) PhoneVerify (
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-        }
+    }
     if(err != nil) {
         //error detected in status code validation
         return nil, err

@@ -1,7 +1,7 @@
 /*
  * neutrinoapi_lib
  *
- * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io )
+ * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 package imaging_pkg
@@ -18,7 +18,7 @@ type IMAGING interface {
 
     ImageWatermark (string, string, *int64, *string, *string, *int64, *int64) ([]byte, error)
 
-    HTML5Render (string, *string, *string, *string, *int64, *int64, *int64, *int64, *int64, *bool, *float64, *bool, *bool, *bool, *bool, *string, *int64, *int64, *int64, *string, *string, *string, *int64, *string, *string, *bool, *string, *string, *string, *int64, *string, *int64, *bool, *int64, *int64) ([]byte, error)
+    HTML5Render (string, *string, *string, *string, *int64, *int64, *int64, *int64, *int64, *bool, *int64, *bool, *bool, *bool, *bool, *string, *int64, *int64, *int64, *string, *string, *string, *int64, *string, *int64, *bool, *string, *string, *string, *int64, *string, *int64, *bool, *int64, *int64) ([]byte, error)
 }
 
 /*

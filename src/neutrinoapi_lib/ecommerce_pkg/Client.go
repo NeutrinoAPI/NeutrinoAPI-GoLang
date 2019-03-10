@@ -1,13 +1,15 @@
 /*
  * neutrinoapi_lib
  *
- * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io )
+ * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 package ecommerce_pkg
 
 
 import(
+	"errors"
+	"fmt"
 	"encoding/json"
 	"neutrinoapi_lib/models_pkg"
 	"github.com/apimatic/unirest-go"
@@ -30,14 +32,17 @@ type ECOMMERCE_IMPL struct {
 func (me *ECOMMERCE_IMPL) BINLookup (
             binNumber string,
             customerIp *string) (*models_pkg.BINLookupResponse, error) {
-        //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/bin-lookup"
+    //the endpoint path uri
+    _pathUrl := "/bin-lookup"
 
     //variable to hold errors
     var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
         "user-id" : neutrinoapi_lib.config.UserId,
@@ -54,7 +59,6 @@ func (me *ECOMMERCE_IMPL) BINLookup (
         //error in url validation or cleaning
         return nil, err
     }
-
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
         "user-agent" : "APIMATIC 2.0",
@@ -74,7 +78,7 @@ func (me *ECOMMERCE_IMPL) BINLookup (
     //prepare API request
     _request := unirest.Post(_queryBuilder, headers, parameters)
     //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
+    _response, err := unirest.AsString(_request,false);
     if err != nil {
         //error in API invocation
         return nil, err
@@ -89,7 +93,7 @@ func (me *ECOMMERCE_IMPL) BINLookup (
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-        }
+    }
     if(err != nil) {
         //error detected in status code validation
         return nil, err

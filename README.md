@@ -123,6 +123,7 @@ To configure these for your generated code, open the file "Configuration.go" and
 * [securityandnetworking_pkg](#securityandnetworking_pkg)
 * [geolocation_pkg](#geolocation_pkg)
 * [e-commerce_pkg](#e_commerce_pkg)
+* [www_pkg](#www_pkg)
 
 ## <a name="imaging_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".imaging_pkg") imaging_pkg
 
@@ -152,8 +153,8 @@ func (me *IMAGING_IMPL) ImageResize(
 | Parameter | Tags | Description |
 |-----------|------|-------------|
 | imageUrl |  ``` Required ```  | The URL to the source image |
-| width |  ``` Required ```  | Width to resize to (in px) |
-| height |  ``` Required ```  | Height to resize to (in px) |
+| width |  ``` Required ```  | The width to resize to (in px) while preserving aspect ratio |
+| height |  ``` Required ```  | The height to resize to (in px) while preserving aspect ratio |
 | format |  ``` Optional ```  ``` DefaultValue ```  | The output image format, can be either png or jpg |
 
 
@@ -161,8 +162,8 @@ func (me *IMAGING_IMPL) ImageResize(
 
 ```go
 imageUrl := "image-url"
-width,_ := strconv.ParseInt("101", 10, 8)
-height,_ := strconv.ParseInt("101", 10, 8)
+width,_ := strconv.ParseInt("96", 10, 8)
+height,_ := strconv.ParseInt("96", 10, 8)
 format := "png"
 
 var result []byte
@@ -192,16 +193,16 @@ func (me *IMAGING_IMPL) QRCode(
 | content |  ``` Required ```  | The content to encode into the QR code (e.g. a URL or a phone number) |
 | width |  ``` Optional ```  ``` DefaultValue ```  | The width of the QR code (in px) |
 | height |  ``` Optional ```  ``` DefaultValue ```  | The height of the QR code (in px) |
-| fgColor |  ``` Optional ```  ``` DefaultValue ```  | The QR code foreground color (you should always use a dark color for this) |
-| bgColor |  ``` Optional ```  ``` DefaultValue ```  | The QR code background color (you should always use a light color for this) |
+| fgColor |  ``` Optional ```  ``` DefaultValue ```  | The QR code foreground color |
+| bgColor |  ``` Optional ```  ``` DefaultValue ```  | The QR code background color |
 
 
 #### Example Usage
 
 ```go
 content := "content"
-width,_ := strconv.ParseInt("250", 10, 8)
-height,_ := strconv.ParseInt("250", 10, 8)
+width,_ := strconv.ParseInt("256", 10, 8)
+height,_ := strconv.ParseInt("256", 10, 8)
 fgColor := "#000000"
 bgColor := "#ffffff"
 
@@ -235,9 +236,9 @@ func (me *IMAGING_IMPL) ImageWatermark(
 | watermarkUrl |  ``` Required ```  | The URL to the watermark image |
 | opacity |  ``` Optional ```  ``` DefaultValue ```  | The opacity of the watermark (0 to 100) |
 | format |  ``` Optional ```  ``` DefaultValue ```  | The output image format, can be either png or jpg |
-| position |  ``` Optional ```  ``` DefaultValue ```  | The position of the watermark image, possible values are: center, top-left, top-center, top-right, bottom-left, bottom-center, bottom-right |
-| width |  ``` Optional ```  | If set resize the resulting image to this width (preserving aspect ratio) |
-| height |  ``` Optional ```  | If set resize the resulting image to this height (preserving aspect ratio) |
+| position |  ``` Optional ```  ``` DefaultValue ```  | The position of the watermark image, possible values are:<br/>center, top-left, top-center, top-right, bottom-left, bottom-center, bottom-right |
+| width |  ``` Optional ```  | If set resize the resulting image to this width (in px) while preserving aspect ratio |
+| height |  ``` Optional ```  | If set resize the resulting image to this height (in px) while preserving aspect ratio |
 
 
 #### Example Usage
@@ -248,8 +249,8 @@ watermarkUrl := "watermark-url"
 opacity,_ := strconv.ParseInt("50", 10, 8)
 format := "png"
 position := "center"
-width,_ := strconv.ParseInt("101", 10, 8)
-height,_ := strconv.ParseInt("101", 10, 8)
+width,_ := strconv.ParseInt("96", 10, 8)
+height,_ := strconv.ParseInt("96", 10, 8)
 
 var result []byte
 result,_ = imaging.ImageWatermark(imageUrl, watermarkUrl, opacity, format, position, width, height)
@@ -259,7 +260,7 @@ result,_ = imaging.ImageWatermark(imageUrl, watermarkUrl, opacity, format, posit
 
 ### <a name="html5_render"></a>![Method: ](https://apidocs.io/img/method.png ".imaging_pkg.HTML5Render") HTML5Render
 
-> Render HTML and HTML5 content to PDF, JPG or PNG
+> Render HTML content to PDF, JPG or PNG. See: https://www.neutrinoapi.com/api/html5-render/
 
 
 ```go
@@ -274,7 +275,7 @@ func (me *IMAGING_IMPL) HTML5Render(
             marginTop *int64,
             marginBottom *int64,
             landscape *bool,
-            zoom *float64,
+            zoom *int64,
             grayscale *bool,
             mediaPrint *bool,
             mediaQueries *bool,
@@ -288,7 +289,7 @@ func (me *IMAGING_IMPL) HTML5Render(
             headerTextRight *string,
             headerSize *int64,
             headerFont *string,
-            headerFontSize *string,
+            headerFontSize *int64,
             headerLine *bool,
             footerTextLeft *string,
             footerTextCenter *string,
@@ -323,7 +324,7 @@ func (me *IMAGING_IMPL) HTML5Render(
 | css |  ``` Optional ```  | Inject custom CSS into the HTML. e.g. 'body { background-color: red;}' |
 | imageWidth |  ``` Optional ```  ``` DefaultValue ```  | If rendering to an image format (PNG or JPG) use this image width (in pixels) |
 | imageHeight |  ``` Optional ```  | If rendering to an image format (PNG or JPG) use this image height (in pixels). The default is automatic which dynamically sets the image height based on the content |
-| renderDelay |  ``` Optional ```  | Number of milliseconds to wait before rendering the page (can be useful for pages with animations etc) |
+| renderDelay |  ``` Optional ```  ``` DefaultValue ```  | Number of milliseconds to wait before rendering the page (can be useful for pages with animations etc) |
 | headerTextLeft |  ``` Optional ```  | Text to print to the left-hand side header of each page. e.g. 'My header - Page {page_number} of {total_pages}' |
 | headerTextCenter |  ``` Optional ```  | Text to print to the center header of each page |
 | headerTextRight |  ``` Optional ```  | Text to print to the right-hand side header of each page |
@@ -355,21 +356,21 @@ marginRight,_ := strconv.ParseInt("0", 10, 8)
 marginTop,_ := strconv.ParseInt("0", 10, 8)
 marginBottom,_ := strconv.ParseInt("0", 10, 8)
 landscape := false
-zoom := "1.0"
+zoom,_ := strconv.ParseInt("1.0", 10, 8)
 grayscale := false
 mediaPrint := false
 mediaQueries := false
 forms := false
 css := "css"
 imageWidth,_ := strconv.ParseInt("1024", 10, 8)
-imageHeight,_ := strconv.ParseInt("101", 10, 8)
-renderDelay,_ := strconv.ParseInt("101", 10, 8)
+imageHeight,_ := strconv.ParseInt("96", 10, 8)
+renderDelay,_ := strconv.ParseInt("0", 10, 8)
 headerTextLeft := "header-text-left"
 headerTextCenter := "header-text-center"
 headerTextRight := "header-text-right"
 headerSize,_ := strconv.ParseInt("9", 10, 8)
 headerFont := "Courier"
-headerFontSize := "11"
+headerFontSize,_ := strconv.ParseInt("11", 10, 8)
 headerLine := false
 footerTextLeft := "footer-text-left"
 footerTextCenter := "footer-text-center"
@@ -378,8 +379,8 @@ footerSize,_ := strconv.ParseInt("9", 10, 8)
 footerFont := "Courier"
 footerFontSize,_ := strconv.ParseInt("11", 10, 8)
 footerLine := false
-pageWidth,_ := strconv.ParseInt("101", 10, 8)
-pageHeight,_ := strconv.ParseInt("101", 10, 8)
+pageWidth,_ := strconv.ParseInt("96", 10, 8)
+pageHeight,_ := strconv.ParseInt("96", 10, 8)
 
 var result []byte
 result,_ = imaging.HTML5Render(content, format, pageSize, title, margin, marginLeft, marginRight, marginTop, marginBottom, landscape, zoom, grayscale, mediaPrint, mediaQueries, forms, css, imageWidth, imageHeight, renderDelay, headerTextLeft, headerTextCenter, headerTextRight, headerSize, headerFont, headerFontSize, headerLine, footerTextLeft, footerTextCenter, footerTextRight, footerSize, footerFont, footerFontSize, footerLine, pageWidth, pageHeight)
@@ -401,7 +402,7 @@ telephony := telephony_pkg.NewTELEPHONY()
 
 ### <a name="hlr_lookup"></a>![Method: ](https://apidocs.io/img/method.png ".telephony_pkg.HLRLookup") HLRLookup
 
-> Connect to the global mobile cellular network and retrieve the status of a mobile device
+> Connect to the global mobile cellular network and retrieve the status of a mobile device. See: https://www.neutrinoapi.com/api/hlr-lookup/
 
 
 ```go
@@ -415,7 +416,7 @@ func (me *TELEPHONY_IMPL) HLRLookup(
 | Parameter | Tags | Description |
 |-----------|------|-------------|
 | number |  ``` Required ```  | A phone number |
-| countryCode |  ``` Optional ```  | ISO 2-letter country code, assume numbers are based in this country. If not set numbers are assumed to be in international format (with or without the leading + sign) |
+| countryCode |  ``` Optional ```  | ISO 2-letter country code, assume numbers are based in this country.<br/>If not set numbers are assumed to be in international format (with or without the leading + sign) |
 
 
 #### Example Usage
@@ -432,7 +433,7 @@ result,_ = telephony.HLRLookup(number, countryCode)
 
 ### <a name="phone_playback"></a>![Method: ](https://apidocs.io/img/method.png ".telephony_pkg.PhonePlayback") PhonePlayback
 
-> Make an automated call to any valid phone number and playback an audio message
+> Make an automated call to any valid phone number and playback an audio message. See: https://www.neutrinoapi.com/api/phone-playback/
 
 
 ```go
@@ -445,8 +446,8 @@ func (me *TELEPHONY_IMPL) PhonePlayback(
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| number |  ``` Required ```  | The phone number to call. Must be valid international format |
-| audioUrl |  ``` Required ```  | A URL to a valid audio file. Accepted audio formats are: MP3, WAV, OGG |
+| number |  ``` Required ```  | The phone number to call. Must be in valid international format |
+| audioUrl |  ``` Required ```  | A URL to a valid audio file. Accepted audio formats are:<ul><li>MP3</li><li>WAV</li><li>OGG</ul></ul>You can use the following MP3 URL for testing:<br/>https://www.neutrinoapi.com/test-files/test1.mp3 |
 
 
 #### Example Usage
@@ -463,11 +464,11 @@ result,_ = telephony.PhonePlayback(number, audioUrl)
 
 ### <a name="verify_security_code"></a>![Method: ](https://apidocs.io/img/method.png ".telephony_pkg.VerifySecurityCode") VerifySecurityCode
 
-> Check if a security code from one of the verify APIs is valid
+> Check if a security code from one of the verify APIs is valid. See: https://www.neutrinoapi.com/api/verify-security-code/
 
 
 ```go
-func (me *TELEPHONY_IMPL) VerifySecurityCode(securityCode int64)(*models_pkg.VerifySecurityCodeResponse,error)
+func (me *TELEPHONY_IMPL) VerifySecurityCode(securityCode string)(*models_pkg.VerifySecurityCodeResponse,error)
 ```
 
 #### Parameters
@@ -480,7 +481,7 @@ func (me *TELEPHONY_IMPL) VerifySecurityCode(securityCode int64)(*models_pkg.Ver
 #### Example Usage
 
 ```go
-securityCode,_ := strconv.ParseInt("101", 10, 8)
+securityCode := "security-code"
 
 var result *models_pkg.VerifySecurityCodeResponse
 result,_ = telephony.VerifySecurityCode(securityCode)
@@ -490,7 +491,7 @@ result,_ = telephony.VerifySecurityCode(securityCode)
 
 ### <a name="sms_verify"></a>![Method: ](https://apidocs.io/img/method.png ".telephony_pkg.SMSVerify") SMSVerify
 
-> Send a unique security code to any mobile device via SMS
+> Send a unique security code to any mobile device via SMS. See: https://www.neutrinoapi.com/api/sms-verify/
 
 
 ```go
@@ -508,9 +509,9 @@ func (me *TELEPHONY_IMPL) SMSVerify(
 |-----------|------|-------------|
 | number |  ``` Required ```  | The phone number to send a verification code to |
 | codeLength |  ``` Optional ```  ``` DefaultValue ```  | The number of digits to use in the security code (must be between 4 and 12) |
-| securityCode |  ``` Optional ```  | ass in your own security code. This is useful if you have implemented TOTP or similar 2FA methods. If not set then we will generate a secure random code (only numerical security codes are currently supported) |
-| countryCode |  ``` Optional ```  | ISO 2-letter country code, assume numbers are based in this country. If not set numbers are assumed to be in international format (with or without the leading + sign) |
-| languageCode |  ``` Optional ```  ``` DefaultValue ```  | The language to send the verification code in, available languages are: de - German, en - English, es - Spanish, fr - Fench, it - Italian, pt - Portuguese, ru - Russian |
+| securityCode |  ``` Optional ```  | Pass in your own security code. This is useful if you have implemented TOTP or similar 2FA methods. If not set then we will generate a secure random code |
+| countryCode |  ``` Optional ```  | ISO 2-letter country code, assume numbers are based in this country.<br/>If not set numbers are assumed to be in international format (with or without the leading + sign) |
+| languageCode |  ``` Optional ```  ``` DefaultValue ```  | The language to send the verification code in, available languages are:<ul><li>de - German</li><li>en - English</li><li>es - Spanish</li><li>fr - French</li><li>it - Italian</li><li>pt - Portuguese</li><li>ru - Russian</li></ul> |
 
 
 #### Example Usage
@@ -518,7 +519,7 @@ func (me *TELEPHONY_IMPL) SMSVerify(
 ```go
 number := "number"
 codeLength,_ := strconv.ParseInt("5", 10, 8)
-securityCode,_ := strconv.ParseInt("101", 10, 8)
+securityCode,_ := strconv.ParseInt("54", 10, 8)
 countryCode := "country-code"
 languageCode := "en"
 
@@ -528,9 +529,43 @@ result,_ = telephony.SMSVerify(number, codeLength, securityCode, countryCode, la
 ```
 
 
+### <a name="sms_message"></a>![Method: ](https://apidocs.io/img/method.png ".telephony_pkg.SMSMessage") SMSMessage
+
+> Send a free-form message to any mobile device via SMS. See: https://www.neutrinoapi.com/api/sms-message/
+
+
+```go
+func (me *TELEPHONY_IMPL) SMSMessage(
+            number string,
+            message string,
+            countryCode *string)(*models_pkg.SMSMessageResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| number |  ``` Required ```  | The phone number to send a message to |
+| message |  ``` Required ```  | The SMS message to send. Messages are truncated to a maximum of 150 characters for ASCII content OR 70 characters for UTF content |
+| countryCode |  ``` Optional ```  | ISO 2-letter country code, assume numbers are based in this country.<br/>If not set numbers are assumed to be in international format (with or without the leading + sign) |
+
+
+#### Example Usage
+
+```go
+number := "number"
+message := "message"
+countryCode := "country-code"
+
+var result *models_pkg.SMSMessageResponse
+result,_ = telephony.SMSMessage(number, message, countryCode)
+
+```
+
+
 ### <a name="phone_verify"></a>![Method: ](https://apidocs.io/img/method.png ".telephony_pkg.PhoneVerify") PhoneVerify
 
-> Make an automated call to any valid phone number and playback a unique security code
+> Make an automated call to any valid phone number and playback a unique security code. See: https://www.neutrinoapi.com/api/phone-verify/
 
 
 ```go
@@ -549,10 +584,10 @@ func (me *TELEPHONY_IMPL) PhoneVerify(
 |-----------|------|-------------|
 | number |  ``` Required ```  | The phone number to send the verification code to |
 | codeLength |  ``` Optional ```  ``` DefaultValue ```  | The number of digits to use in the security code (between 4 and 12) |
-| securityCode |  ``` Optional ```  | Pass in your own security code. This is useful if you have implemented TOTP or similar 2FA methods. If not set then we will generate a secure random code (only numerical security codes are currently supported) |
+| securityCode |  ``` Optional ```  | Pass in your own security code. This is useful if you have implemented TOTP or similar 2FA methods. If not set then we will generate a secure random code |
 | playbackDelay |  ``` Optional ```  ``` DefaultValue ```  | The delay in milliseconds between the playback of each security code |
-| countryCode |  ``` Optional ```  | ISO 2-letter country code, assume numbers are based in this country. If not set numbers are assumed to be in international format (with or without the leading + sign) |
-| languageCode |  ``` Optional ```  ``` DefaultValue ```  | The language to playback the verification code in, available languages are: de - German, en - English, es - Spanish, fr - Fench, it - Italian, pt - Portuguese, ru - Russian |
+| countryCode |  ``` Optional ```  | ISO 2-letter country code, assume numbers are based in this country.<br/>If not set numbers are assumed to be in international format (with or without the leading + sign) |
+| languageCode |  ``` Optional ```  ``` DefaultValue ```  | The language to playback the verification code in, available languages are:<ul><li>de - German</li><li>en - English</li><li>es - Spanish</li><li>fr - French</li><li>it - Italian</li><li>pt - Portuguese</li><li>ru - Russian</li></ul> |
 
 
 #### Example Usage
@@ -560,7 +595,7 @@ func (me *TELEPHONY_IMPL) PhoneVerify(
 ```go
 number := "number"
 codeLength,_ := strconv.ParseInt("6", 10, 8)
-securityCode,_ := strconv.ParseInt("101", 10, 8)
+securityCode,_ := strconv.ParseInt("54", 10, 8)
 playbackDelay,_ := strconv.ParseInt("800", 10, 8)
 countryCode := "country-code"
 languageCode := "en"
@@ -585,7 +620,7 @@ dataTools := datatools_pkg.NewDATATOOLS()
 
 ### <a name="email_validate"></a>![Method: ](https://apidocs.io/img/method.png ".datatools_pkg.EmailValidate") EmailValidate
 
-> Parse, validate and clean an email address
+> Parse, validate and clean an email address. See: https://www.neutrinoapi.com/api/email-validate/
 
 
 ```go
@@ -598,7 +633,7 @@ func (me *DATATOOLS_IMPL) EmailValidate(
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| email |  ``` Required ```  | The email address |
+| email |  ``` Required ```  | An email address |
 | fixTypos |  ``` Optional ```  ``` DefaultValue ```  | Automatically attempt to fix typos in the address |
 
 
@@ -616,7 +651,7 @@ result,_ = dataTools.EmailValidate(email, fixTypos)
 
 ### <a name="bad_word_filter"></a>![Method: ](https://apidocs.io/img/method.png ".datatools_pkg.BadWordFilter") BadWordFilter
 
-> Detect bad words, swear words and profanity in a given text
+> Detect bad words, swear words and profanity in a given text. See: https://www.neutrinoapi.com/api/bad-word-filter/
 
 
 ```go
@@ -629,7 +664,7 @@ func (me *DATATOOLS_IMPL) BadWordFilter(
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| content |  ``` Required ```  | The text content to check. This can be either a URL to load content from or an actual content string |
+| content |  ``` Required ```  | The content to scan. This can be either a URL to load content from or an actual content string |
 | censorCharacter |  ``` Optional ```  | The character to use to censor out the bad words found |
 
 
@@ -647,7 +682,7 @@ result,_ = dataTools.BadWordFilter(content, censorCharacter)
 
 ### <a name="convert"></a>![Method: ](https://apidocs.io/img/method.png ".datatools_pkg.Convert") Convert
 
-> A powerful unit and currency conversion tool
+> A powerful unit conversion tool. See: https://www.neutrinoapi.com/api/convert/
 
 
 ```go
@@ -661,9 +696,9 @@ func (me *DATATOOLS_IMPL) Convert(
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| fromValue |  ``` Required ```  | The value to convert from |
-| fromType |  ``` Required ```  | The type of the value to convert from |
-| toType |  ``` Required ```  | The type to convert to |
+| fromValue |  ``` Required ```  | The value to convert from (e.g. 10.95) |
+| fromType |  ``` Required ```  | The type of the value to convert from (e.g. USD) |
+| toType |  ``` Required ```  | The type to convert to (e.g. EUR) |
 
 
 #### Example Usage
@@ -681,7 +716,7 @@ result,_ = dataTools.Convert(fromValue, fromType, toType)
 
 ### <a name="phone_validate"></a>![Method: ](https://apidocs.io/img/method.png ".datatools_pkg.PhoneValidate") PhoneValidate
 
-> Parse, validate and get location information about a phone number
+> Parse, validate and get location information about a phone number. See: https://www.neutrinoapi.com/api/phone-validate/
 
 
 ```go
@@ -695,8 +730,8 @@ func (me *DATATOOLS_IMPL) PhoneValidate(
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| number |  ``` Required ```  | The phone number |
-| countryCode |  ``` Optional ```  | ISO 2-letter country code, assume numbers are based in this country. If not set numbers are assumed to be in international format (with or without the leading + sign) |
+| number |  ``` Required ```  | A phone number. This can be in international format (E.164) or local format. If passing local format you should use the 'country-code' or 'ip' options as well |
+| countryCode |  ``` Optional ```  | ISO 2-letter country code, assume numbers are based in this country.<br/>If not set numbers are assumed to be in international format (with or without the leading + sign) |
 | ip |  ``` Optional ```  | Pass in a users IP address and we will assume numbers are based in the country of the IP address |
 
 
@@ -715,7 +750,7 @@ result,_ = dataTools.PhoneValidate(number, countryCode, ip)
 
 ### <a name="user_agent_info"></a>![Method: ](https://apidocs.io/img/method.png ".datatools_pkg.UserAgentInfo") UserAgentInfo
 
-> Parse, validate and get detailed user-agent information from a user agent string
+> Parse, validate and get detailed user-agent information from a user agent string. See: https://www.neutrinoapi.com/api/user-agent-info/
 
 
 ```go
@@ -726,7 +761,7 @@ func (me *DATATOOLS_IMPL) UserAgentInfo(userAgent string)(*models_pkg.UserAgentI
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| userAgent |  ``` Required ```  | A user-agent string |
+| userAgent |  ``` Required ```  | A user agent string |
 
 
 #### Example Usage
@@ -736,74 +771,6 @@ userAgent := "user-agent"
 
 var result *models_pkg.UserAgentInfoResponse
 result,_ = dataTools.UserAgentInfo(userAgent)
-
-```
-
-
-### <a name="html_clean"></a>![Method: ](https://apidocs.io/img/method.png ".datatools_pkg.HTMLClean") HTMLClean
-
-> Clean and sanitize untrusted HTML
-
-
-```go
-func (me *DATATOOLS_IMPL) HTMLClean(
-            content string,
-            outputType string)([]byte,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| content |  ``` Required ```  | The HTML content. This can be either a URL to load HTML from or an actual HTML content string |
-| outputType |  ``` Required ```  | The level of sanitization, possible values are: plain-text, simple-text, basic-html, basic-html-with-images, advanced-html |
-
-
-#### Example Usage
-
-```go
-content := "content"
-outputType := "output-type"
-
-var result []byte
-result,_ = dataTools.HTMLClean(content, outputType)
-
-```
-
-
-### <a name="html_extract"></a>![Method: ](https://apidocs.io/img/method.png ".datatools_pkg.HTMLExtract") HTMLExtract
-
-> Extract specific HTML tag contents or attributes from complex HTML or XHTML content
-
-
-```go
-func (me *DATATOOLS_IMPL) HTMLExtract(
-            content string,
-            tag string,
-            attribute *string,
-            baseUrl *string)(*models_pkg.HTMLExtractResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| content |  ``` Required ```  | The HTML content. This can be either a URL to load HTML from or an actual HTML content string |
-| tag |  ``` Required ```  | The HTML tag(s) to extract data from. This can just be a simple tag name like 'img' OR a CSS/jQuery style selector |
-| attribute |  ``` Optional ```  | If set, then extract data from the specified tag attribute. If not set, then data will be extracted from the tags inner content |
-| baseUrl |  ``` Optional ```  | The base URL to replace into realive links |
-
-
-#### Example Usage
-
-```go
-content := "content"
-tag := "tag"
-attribute := "attribute"
-baseUrl := "base-url"
-
-var result *models_pkg.HTMLExtractResponse
-result,_ = dataTools.HTMLExtract(content, tag, attribute, baseUrl)
 
 ```
 
@@ -822,65 +789,38 @@ securityAndNetworking := securityandnetworking_pkg.NewSECURITYANDNETWORKING()
 
 ### <a name="host_reputation"></a>![Method: ](https://apidocs.io/img/method.png ".securityandnetworking_pkg.HostReputation") HostReputation
 
-> Check the reputation of an IP address or domain against a comprehensive list of blacklists and blocklists (DNSBLs)
+> Check the reputation of an IP address, domain name, FQDN or URL against a comprehensive list of blacklists and blocklists. See: https://www.neutrinoapi.com/api/host-reputation/
 
 
 ```go
-func (me *SECURITYANDNETWORKING_IMPL) HostReputation(host string)(*models_pkg.HostReputationResponse,error)
+func (me *SECURITYANDNETWORKING_IMPL) HostReputation(
+            host string,
+            listRating *int64)(*models_pkg.HostReputationResponse,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| host |  ``` Required ```  | An IPv4 address or a domain name. If you supply a domain name it will be checked against the URI DNSBL list |
+| host |  ``` Required ```  | An IP address, domain name, FQDN or URL.<br/>If you supply a domain/URL it will be checked against the URI DNSBL lists |
+| listRating |  ``` Optional ```  ``` DefaultValue ```  | Only check lists with this rating or better |
 
 
 #### Example Usage
 
 ```go
 host := "host"
+listRating,_ := strconv.ParseInt("3", 10, 8)
 
 var result *models_pkg.HostReputationResponse
-result,_ = securityAndNetworking.HostReputation(host)
-
-```
-
-
-### <a name="url_info"></a>![Method: ](https://apidocs.io/img/method.png ".securityandnetworking_pkg.URLInfo") URLInfo
-
-> Parse, analyze and retrieve content from the supplied URL
-
-
-```go
-func (me *SECURITYANDNETWORKING_IMPL) URLInfo(
-            url string,
-            fetchContent bool)(*models_pkg.URLInfoResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| url |  ``` Required ```  | The URL to process |
-| fetchContent |  ``` Required ```  | If this URL responds with html, text, json or xml then return the response. This option is useful if you want to perform further processing on the URL content |
-
-
-#### Example Usage
-
-```go
-url := "url"
-fetchContent := false
-
-var result *models_pkg.URLInfoResponse
-result,_ = securityAndNetworking.URLInfo(url, fetchContent)
+result,_ = securityAndNetworking.HostReputation(host, listRating)
 
 ```
 
 
 ### <a name="ip_probe"></a>![Method: ](https://apidocs.io/img/method.png ".securityandnetworking_pkg.IPProbe") IPProbe
 
-> Analyze and extract provider information for an IP address
+> Analyze and extract provider information for an IP address. See: https://www.neutrinoapi.com/api/ip-probe/
 
 
 ```go
@@ -907,7 +847,7 @@ result,_ = securityAndNetworking.IPProbe(ip)
 
 ### <a name="ip_blocklist"></a>![Method: ](https://apidocs.io/img/method.png ".securityandnetworking_pkg.IPBlocklist") IPBlocklist
 
-> The IP Blocklist API will detect potentially malicious or dangerous IP addresses
+> The IP Blocklist API will detect potentially malicious or dangerous IP addresses. See: https://www.neutrinoapi.com/api/ip-blocklist/
 
 
 ```go
@@ -918,7 +858,7 @@ func (me *SECURITYANDNETWORKING_IMPL) IPBlocklist(ip string)(*models_pkg.IPBlock
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| ip |  ``` Required ```  | An IPv4 address |
+| ip |  ``` Required ```  | An IPv4 or IPv6 address |
 
 
 #### Example Usage
@@ -934,7 +874,7 @@ result,_ = securityAndNetworking.IPBlocklist(ip)
 
 ### <a name="email_verify"></a>![Method: ](https://apidocs.io/img/method.png ".securityandnetworking_pkg.EmailVerify") EmailVerify
 
-> SMTP based email address verification
+> SMTP based email address verification. See: https://www.neutrinoapi.com/api/email-verify/
 
 
 ```go
@@ -948,7 +888,7 @@ func (me *SECURITYANDNETWORKING_IMPL) EmailVerify(
 | Parameter | Tags | Description |
 |-----------|------|-------------|
 | email |  ``` Required ```  | An email address |
-| fixTypos |  ``` Optional ```  | Automatically attempt to fix typos in the address |
+| fixTypos |  ``` Optional ```  ``` DefaultValue ```  | Automatically attempt to fix typos in the address |
 
 
 #### Example Usage
@@ -977,13 +917,13 @@ geolocation := geolocation_pkg.NewGEOLOCATION()
 
 ### <a name="geocode_reverse"></a>![Method: ](https://apidocs.io/img/method.png ".geolocation_pkg.GeocodeReverse") GeocodeReverse
 
-> Convert a geographic coordinate (latitude and longitude) into a real world address or location.
+> Convert a geographic coordinate (latitude and longitude) into a real world address or location. See: https://www.neutrinoapi.com/api/geocode-reverse/
 
 
 ```go
 func (me *GEOLOCATION_IMPL) GeocodeReverse(
-            latitude float64,
-            longitude float64,
+            latitude string,
+            longitude string,
             languageCode *string)(*models_pkg.GeocodeReverseResponse,error)
 ```
 
@@ -991,16 +931,16 @@ func (me *GEOLOCATION_IMPL) GeocodeReverse(
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| latitude |  ``` Required ```  | The location latitude |
-| longitude |  ``` Required ```  | The location longitude |
-| languageCode |  ``` Optional ```  ``` DefaultValue ```  | The language to display results in, available languages are: de, en, es, fr, it, pt, ru |
+| latitude |  ``` Required ```  | The location latitude in decimal degrees format |
+| longitude |  ``` Required ```  | The location longitude in decimal degrees format |
+| languageCode |  ``` Optional ```  ``` DefaultValue ```  | The language to display results in, available languages are:<ul><li>de, en, es, fr, it, pt, ru</li></ul> |
 
 
 #### Example Usage
 
 ```go
-latitude := 101.592891887572
-longitude := 101.592891887572
+latitude := "latitude"
+longitude := "longitude"
 languageCode := "en"
 
 var result *models_pkg.GeocodeReverseResponse
@@ -1011,7 +951,7 @@ result,_ = geolocation.GeocodeReverse(latitude, longitude, languageCode)
 
 ### <a name="ip_info"></a>![Method: ](https://apidocs.io/img/method.png ".geolocation_pkg.IPInfo") IPInfo
 
-> Get location information about an IP address and do reverse DNS (PTR) lookups.
+> Get location information about an IP address and do reverse DNS (PTR) lookups. See: https://www.neutrinoapi.com/api/ip-info/
 
 
 ```go
@@ -1024,7 +964,7 @@ func (me *GEOLOCATION_IMPL) IPInfo(
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| ip |  ``` Required ```  | The IP address |
+| ip |  ``` Required ```  | IPv4 or IPv6 address |
 | reverseLookup |  ``` Optional ```  ``` DefaultValue ```  | Do a reverse DNS (PTR) lookup. This option can add extra delay to the request so only use it if you need it |
 
 
@@ -1042,7 +982,7 @@ result,_ = geolocation.IPInfo(ip, reverseLookup)
 
 ### <a name="geocode_address"></a>![Method: ](https://apidocs.io/img/method.png ".geolocation_pkg.GeocodeAddress") GeocodeAddress
 
-> Geocode an address, partial address or the name of a location
+> Geocode an address, partial address or just the name of a place. See: https://www.neutrinoapi.com/api/geocode-address/
 
 
 ```go
@@ -1057,9 +997,9 @@ func (me *GEOLOCATION_IMPL) GeocodeAddress(
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| address |  ``` Required ```  | The address or partial address to try and locate |
-| countryCode |  ``` Optional ```  | The ISO 2-letter country code to be biased towards (default is no country bias) |
-| languageCode |  ``` Optional ```  ``` DefaultValue ```  | The language to display results in, available languages are: de, en, es, fr, it, pt, ru |
+| address |  ``` Required ```  | The address, partial address or name of a place to try and locate |
+| countryCode |  ``` Optional ```  | The ISO 2-letter country code to be biased towards (the default is no country bias) |
+| languageCode |  ``` Optional ```  ``` DefaultValue ```  | The language to display results in, available languages are:<ul><li>de, en, es, fr, it, pt, ru</li></ul> |
 | fuzzySearch |  ``` Optional ```  ``` DefaultValue ```  | If no matches are found for the given address, start performing a recursive fuzzy search until a geolocation is found. We use a combination of approximate string matching and data cleansing to find possible location matches |
 
 
@@ -1105,7 +1045,7 @@ func (me *ECOMMERCE_IMPL) BINLookup(
 | Parameter | Tags | Description |
 |-----------|------|-------------|
 | binNumber |  ``` Required ```  | The BIN or IIN number (the first 6 digits of a credit card number) |
-| customerIp |  ``` Optional ```  | Pass in a customers remote IP address. The API will then determine the country of the IP address and match it against the BIN country. This feature is designed for fraud prevention and detection checks. |
+| customerIp |  ``` Optional ```  | Pass in the customers IP address and we will return some extra information about them |
 
 
 #### Example Usage
@@ -1116,6 +1056,128 @@ customerIp := "customer-ip"
 
 var result *models_pkg.BINLookupResponse
 result,_ = eCommerce.BINLookup(binNumber, customerIp)
+
+```
+
+
+[Back to List of Controllers](#list_of_controllers)
+
+## <a name="www_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".www_pkg") www_pkg
+
+### Get instance
+
+Factory for the ``` WWW ``` interface can be accessed from the package www_pkg.
+
+```go
+wWW := www_pkg.NewWWW()
+```
+
+### <a name="url_info"></a>![Method: ](https://apidocs.io/img/method.png ".www_pkg.URLInfo") URLInfo
+
+> Parse, analyze and retrieve content from the supplied URL. See: https://www.neutrinoapi.com/api/url-info/
+
+
+```go
+func (me *WWW_IMPL) URLInfo(
+            url string,
+            fetchContent *bool)(*models_pkg.URLInfoResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| url |  ``` Required ```  | The URL to probe |
+| fetchContent |  ``` Optional ```  ``` DefaultValue ```  | If this URL responds with html, text, json or xml then return the response. This option is useful if you want to perform further processing on the URL content (e.g. with the HTML Extract or HTML Clean APIs) |
+
+
+#### Example Usage
+
+```go
+url := "url"
+fetchContent := false
+
+var result *models_pkg.URLInfoResponse
+result,_ = wWW.URLInfo(url, fetchContent)
+
+```
+
+
+### <a name="browser_bot"></a>![Method: ](https://apidocs.io/img/method.png ".www_pkg.BrowserBot") BrowserBot
+
+> Browser bot can extract content, interact with keyboard and mouse events, and execute JavaScript on a website. See: https://www.neutrinoapi.com/api/browser-bot/
+
+
+```go
+func (me *WWW_IMPL) BrowserBot(
+            url string,
+            timeout *int64,
+            delay *int64,
+            selector *string,
+            exec []string,
+            userAgent *string,
+            ignoreCertificateErrors *bool)(*models_pkg.BrowserBotResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| url |  ``` Required ```  | The URL to load |
+| timeout |  ``` Optional ```  ``` DefaultValue ```  | Timeout in seconds. Give up if still trying to load the page after this number of seconds |
+| delay |  ``` Optional ```  ``` DefaultValue ```  | Delay in seconds to wait before executing any selectors or JavaScript |
+| selector |  ``` Optional ```  | Extract content from the page DOM using this selector. Commonly known as a CSS selector, you can find a good reference <a href="https://www.w3schools.com/cssref/css_selectors.asp" target="_blank">here</a> |
+| exec |  ``` Optional ```  ``` Collection ```  ``` DefaultValue ```  | Execute JavaScript on the page. Each array element should contain a valid JavaScript statement in string form. If a statement returns any kind of value it will be returned in the 'exec-results' response.<br/><br/>For your convenience you can also use the following special shortcut functions:<br/><div style='padding-left:32px; font-family:inherit; font-size:inherit;'>sleep(seconds); Just wait/sleep for the specified number of seconds.<br/>click('selector'); Click on the first element matching the given selector.<br/>focus('selector'); Focus on the first element matching the given selector.<br/>keys('characters'); Send the specified keyboard characters. Use click() or focus() first to send keys to a specific element.<br/>enter(); Send the Enter key.<br/>tab(); Send the Tab key.<br/></div><br/>Example:<br/><div style='padding-left:32px; font-family:inherit; font-size:inherit;'>[ "click('#button-id')", "sleep(1)", "click('.field-class')", "keys('1234')", "enter()" ]</div> |
+| userAgent |  ``` Optional ```  | Override the browsers default user-agent string with this one |
+| ignoreCertificateErrors |  ``` Optional ```  ``` DefaultValue ```  | Ignore any TLS/SSL certificate errors and load the page anyway |
+
+
+#### Example Usage
+
+```go
+url := "url"
+timeout,_ := strconv.ParseInt("30", 10, 8)
+delay,_ := strconv.ParseInt("2", 10, 8)
+selector := "selector"
+execValue := []byte("[]")
+var exec []string
+json.Unmarshal(execValue,&exec)
+userAgent := "user-agent"
+ignoreCertificateErrors := false
+
+var result *models_pkg.BrowserBotResponse
+result,_ = wWW.BrowserBot(url, timeout, delay, selector, exec, userAgent, ignoreCertificateErrors)
+
+```
+
+
+### <a name="html_clean"></a>![Method: ](https://apidocs.io/img/method.png ".www_pkg.HTMLClean") HTMLClean
+
+> Clean and sanitize untrusted HTML. See: https://www.neutrinoapi.com/api/html-clean/
+
+
+```go
+func (me *WWW_IMPL) HTMLClean(
+            content string,
+            outputType string)([]byte,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| content |  ``` Required ```  | The HTML content. This can be either a URL to load HTML from or an actual HTML content string |
+| outputType |  ``` Required ```  | The level of sanitization, possible values are:<br/><b>plain-text</b>: reduce the content to plain text only (no HTML tags at all)<br/><br/><b>simple-text</b>: allow only very basic text formatting tags like b, em, i, strong, u<br/><br/><b>basic-html</b>: allow advanced text formatting and hyper links<br/><br/><b>basic-html-with-images</b>: same as basic html but also allows image tags<br/><br/><b>advanced-html</b>: same as basic html with images but also allows many more common HTML tags like table, ul, dl, pre<br/> |
+
+
+#### Example Usage
+
+```go
+content := "content"
+outputType := "output-type"
+
+var result []byte
+result,_ = wWW.HTMLClean(content, outputType)
 
 ```
 

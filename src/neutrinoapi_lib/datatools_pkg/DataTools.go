@@ -1,7 +1,7 @@
 /*
  * neutrinoapi_lib
  *
- * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io )
+ * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 package datatools_pkg
@@ -22,10 +22,6 @@ type DATATOOLS interface {
     PhoneValidate (string, *string, *string) (*models_pkg.PhoneValidateResponse, error)
 
     UserAgentInfo (string) (*models_pkg.UserAgentInfoResponse, error)
-
-    HTMLClean (string, string) ([]byte, error)
-
-    HTMLExtract (string, string, *string, *string) (*models_pkg.HTMLExtractResponse, error)
 }
 
 /*

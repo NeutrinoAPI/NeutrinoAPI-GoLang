@@ -1,13 +1,15 @@
 /*
  * neutrinoapi_lib
  *
- * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io )
+ * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 package imaging_pkg
 
 
 import(
+	"errors"
+	"fmt"
 	"github.com/apimatic/unirest-go"
 	"neutrinoapi_lib/apihelper_pkg"
 	"neutrinoapi_lib/configuration_pkg"
@@ -32,14 +34,17 @@ func (me *IMAGING_IMPL) ImageResize (
             width int64,
             height int64,
             format *string) ([]byte, error) {
-        //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/image-resize"
+    //the endpoint path uri
+    _pathUrl := "/image-resize"
 
     //variable to hold errors
     var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
         "user-id" : neutrinoapi_lib.config.UserId,
@@ -56,7 +61,6 @@ func (me *IMAGING_IMPL) ImageResize (
         //error in url validation or cleaning
         return nil, err
     }
-
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
         "user-agent" : "APIMATIC 2.0",
@@ -76,7 +80,7 @@ func (me *IMAGING_IMPL) ImageResize (
     //prepare API request
     _request := unirest.Post(_queryBuilder, headers, parameters)
     //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
+    _response, err := unirest.AsString(_request,false);
     if err != nil {
         //error in API invocation
         return nil, err
@@ -91,7 +95,7 @@ func (me *IMAGING_IMPL) ImageResize (
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-        }
+    }
     if(err != nil) {
         //error detected in status code validation
         return nil, err
@@ -117,17 +121,20 @@ func (me *IMAGING_IMPL) QRCode (
             height *int64,
             fgColor *string,
             bgColor *string) ([]byte, error) {
-        //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/qr-code"
+    //the endpoint path uri
+    _pathUrl := "/qr-code"
 
     //variable to hold errors
     var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
-        "width" : apihelper_pkg.ToString(*width, "250"),
+        "width" : apihelper_pkg.ToString(*width, "256"),
         "user-id" : neutrinoapi_lib.config.UserId,
         "api-key" : neutrinoapi_lib.config.ApiKey,
     })
@@ -142,7 +149,6 @@ func (me *IMAGING_IMPL) QRCode (
         //error in url validation or cleaning
         return nil, err
     }
-
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
         "user-agent" : "APIMATIC 2.0",
@@ -152,7 +158,7 @@ func (me *IMAGING_IMPL) QRCode (
     parameters := map[string]interface{} {
 
         "content" : content,
-        "height" : apihelper_pkg.ToString(*height, "250"),
+        "height" : apihelper_pkg.ToString(*height, "256"),
         "fg-color" : apihelper_pkg.ToString(*fgColor, "#000000"),
         "bg-color" : apihelper_pkg.ToString(*bgColor, "#ffffff"),
 
@@ -162,7 +168,7 @@ func (me *IMAGING_IMPL) QRCode (
     //prepare API request
     _request := unirest.Post(_queryBuilder, headers, parameters)
     //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
+    _response, err := unirest.AsString(_request,false);
     if err != nil {
         //error in API invocation
         return nil, err
@@ -177,7 +183,7 @@ func (me *IMAGING_IMPL) QRCode (
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-        }
+    }
     if(err != nil) {
         //error detected in status code validation
         return nil, err
@@ -207,14 +213,17 @@ func (me *IMAGING_IMPL) ImageWatermark (
             position *string,
             width *int64,
             height *int64) ([]byte, error) {
-        //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/image-watermark"
+    //the endpoint path uri
+    _pathUrl := "/image-watermark"
 
     //variable to hold errors
     var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
         "user-id" : neutrinoapi_lib.config.UserId,
@@ -231,7 +240,6 @@ func (me *IMAGING_IMPL) ImageWatermark (
         //error in url validation or cleaning
         return nil, err
     }
-
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
         "user-agent" : "APIMATIC 2.0",
@@ -254,7 +262,7 @@ func (me *IMAGING_IMPL) ImageWatermark (
     //prepare API request
     _request := unirest.Post(_queryBuilder, headers, parameters)
     //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
+    _response, err := unirest.AsString(_request,false);
     if err != nil {
         //error in API invocation
         return nil, err
@@ -269,7 +277,7 @@ func (me *IMAGING_IMPL) ImageWatermark (
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-        }
+    }
     if(err != nil) {
         //error detected in status code validation
         return nil, err
@@ -281,42 +289,42 @@ func (me *IMAGING_IMPL) ImageWatermark (
 }
 
 /**
- * Render HTML and HTML5 content to PDF, JPG or PNG
- * @param    string          content                parameter: Required
- * @param    *string         format                 parameter: Optional
- * @param    *string         pageSize               parameter: Optional
- * @param    *string         title                  parameter: Optional
- * @param    *int64          margin                 parameter: Optional
- * @param    *int64          marginLeft             parameter: Optional
- * @param    *int64          marginRight            parameter: Optional
- * @param    *int64          marginTop              parameter: Optional
- * @param    *int64          marginBottom           parameter: Optional
- * @param    *bool           landscape              parameter: Optional
- * @param    *float64        zoom                   parameter: Optional
- * @param    *bool           grayscale              parameter: Optional
- * @param    *bool           mediaPrint             parameter: Optional
- * @param    *bool           mediaQueries           parameter: Optional
- * @param    *bool           forms                  parameter: Optional
- * @param    *string         css                    parameter: Optional
- * @param    *int64          imageWidth             parameter: Optional
- * @param    *int64          imageHeight            parameter: Optional
- * @param    *int64          renderDelay            parameter: Optional
- * @param    *string         headerTextLeft         parameter: Optional
- * @param    *string         headerTextCenter       parameter: Optional
- * @param    *string         headerTextRight        parameter: Optional
- * @param    *int64          headerSize             parameter: Optional
- * @param    *string         headerFont             parameter: Optional
- * @param    *string         headerFontSize         parameter: Optional
- * @param    *bool           headerLine             parameter: Optional
- * @param    *string         footerTextLeft         parameter: Optional
- * @param    *string         footerTextCenter       parameter: Optional
- * @param    *string         footerTextRight        parameter: Optional
- * @param    *int64          footerSize             parameter: Optional
- * @param    *string         footerFont             parameter: Optional
- * @param    *int64          footerFontSize         parameter: Optional
- * @param    *bool           footerLine             parameter: Optional
- * @param    *int64          pageWidth              parameter: Optional
- * @param    *int64          pageHeight             parameter: Optional
+ * Render HTML content to PDF, JPG or PNG. See: https://www.neutrinoapi.com/api/html5-render/
+ * @param    string         content                parameter: Required
+ * @param    *string        format                 parameter: Optional
+ * @param    *string        pageSize               parameter: Optional
+ * @param    *string        title                  parameter: Optional
+ * @param    *int64         margin                 parameter: Optional
+ * @param    *int64         marginLeft             parameter: Optional
+ * @param    *int64         marginRight            parameter: Optional
+ * @param    *int64         marginTop              parameter: Optional
+ * @param    *int64         marginBottom           parameter: Optional
+ * @param    *bool          landscape              parameter: Optional
+ * @param    *int64         zoom                   parameter: Optional
+ * @param    *bool          grayscale              parameter: Optional
+ * @param    *bool          mediaPrint             parameter: Optional
+ * @param    *bool          mediaQueries           parameter: Optional
+ * @param    *bool          forms                  parameter: Optional
+ * @param    *string        css                    parameter: Optional
+ * @param    *int64         imageWidth             parameter: Optional
+ * @param    *int64         imageHeight            parameter: Optional
+ * @param    *int64         renderDelay            parameter: Optional
+ * @param    *string        headerTextLeft         parameter: Optional
+ * @param    *string        headerTextCenter       parameter: Optional
+ * @param    *string        headerTextRight        parameter: Optional
+ * @param    *int64         headerSize             parameter: Optional
+ * @param    *string        headerFont             parameter: Optional
+ * @param    *int64         headerFontSize         parameter: Optional
+ * @param    *bool          headerLine             parameter: Optional
+ * @param    *string        footerTextLeft         parameter: Optional
+ * @param    *string        footerTextCenter       parameter: Optional
+ * @param    *string        footerTextRight        parameter: Optional
+ * @param    *int64         footerSize             parameter: Optional
+ * @param    *string        footerFont             parameter: Optional
+ * @param    *int64         footerFontSize         parameter: Optional
+ * @param    *bool          footerLine             parameter: Optional
+ * @param    *int64         pageWidth              parameter: Optional
+ * @param    *int64         pageHeight             parameter: Optional
  * @return	Returns the []byte response from the API call
  */
 func (me *IMAGING_IMPL) HTML5Render (
@@ -330,7 +338,7 @@ func (me *IMAGING_IMPL) HTML5Render (
             marginTop *int64,
             marginBottom *int64,
             landscape *bool,
-            zoom *float64,
+            zoom *int64,
             grayscale *bool,
             mediaPrint *bool,
             mediaQueries *bool,
@@ -344,7 +352,7 @@ func (me *IMAGING_IMPL) HTML5Render (
             headerTextRight *string,
             headerSize *int64,
             headerFont *string,
-            headerFontSize *string,
+            headerFontSize *int64,
             headerLine *bool,
             footerTextLeft *string,
             footerTextCenter *string,
@@ -355,14 +363,17 @@ func (me *IMAGING_IMPL) HTML5Render (
             footerLine *bool,
             pageWidth *int64,
             pageHeight *int64) ([]byte, error) {
-        //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + "/html5-render"
+    //the endpoint path uri
+    _pathUrl := "/html5-render"
 
     //variable to hold errors
     var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
     //process optional query parameters
     _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
         "user-id" : neutrinoapi_lib.config.UserId,
@@ -379,7 +390,6 @@ func (me *IMAGING_IMPL) HTML5Render (
         //error in url validation or cleaning
         return nil, err
     }
-
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
         "user-agent" : "APIMATIC 2.0",
@@ -407,7 +417,7 @@ func (me *IMAGING_IMPL) HTML5Render (
         "css" : css,
         "image-width" : apihelper_pkg.ToString(*imageWidth, "1024"),
         "image-height" : imageHeight,
-        "render-delay" : renderDelay,
+        "render-delay" : apihelper_pkg.ToString(*renderDelay, "0"),
         "header-text-left" : headerTextLeft,
         "header-text-center" : headerTextCenter,
         "header-text-right" : headerTextRight,
@@ -431,7 +441,7 @@ func (me *IMAGING_IMPL) HTML5Render (
     //prepare API request
     _request := unirest.Post(_queryBuilder, headers, parameters)
     //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request);
+    _response, err := unirest.AsString(_request,false);
     if err != nil {
         //error in API invocation
         return nil, err
@@ -446,7 +456,7 @@ func (me *IMAGING_IMPL) HTML5Render (
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-        }
+    }
     if(err != nil) {
         //error detected in status code validation
         return nil, err

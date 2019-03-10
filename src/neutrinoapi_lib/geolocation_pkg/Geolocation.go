@@ -1,7 +1,7 @@
 /*
  * neutrinoapi_lib
  *
- * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io )
+ * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 package geolocation_pkg
@@ -13,7 +13,7 @@ import "neutrinoapi_lib/configuration_pkg"
  * Interface for the GEOLOCATION_IMPL
  */
 type GEOLOCATION interface {
-    GeocodeReverse (float64, float64, *string) (*models_pkg.GeocodeReverseResponse, error)
+    GeocodeReverse (string, string, *string) (*models_pkg.GeocodeReverseResponse, error)
 
     IPInfo (string, *bool) (*models_pkg.IPInfoResponse, error)
 

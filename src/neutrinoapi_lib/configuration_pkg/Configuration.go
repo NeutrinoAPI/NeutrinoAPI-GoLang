@@ -1,7 +1,7 @@
 /*
  * neutrinoapi_lib
  *
- * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io )
+ * This file was automatically generated for NeutrinoAPI by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 package configuration_pkg
@@ -9,13 +9,14 @@ package configuration_pkg
 
 
 type CONFIGURATION interface {
-        UserId()  string
-        ApiKey()  string
+        UserId() string
         SetUserId(userId   string)
+        ApiKey() string
         SetApiKey(apiKey   string)
-}   
+}
+
 /*
- * Factory for the CONFIGURATION interaface returning CONFIGURATION_IMPL
+ * Factory for the CONFIGURATION interface returning CONFIGURATION_IMPL
  */
 func NewCONFIGURATION() CONFIGURATION{
     configuration := new(CONFIGURATION_IMPL)
