@@ -13,11 +13,11 @@ import "neutrinoapi_lib/configuration_pkg"
  * Interface for the GEOLOCATION_IMPL
  */
 type GEOLOCATION interface {
-    GeocodeReverse (string, string, *string) (*models_pkg.GeocodeReverseResponse, error)
+    GeocodeAddress (string, *string, *string, *bool) (*models_pkg.GeocodeAddressResponse, error)
 
     IPInfo (string, *bool) (*models_pkg.IPInfoResponse, error)
 
-    GeocodeAddress (string, *string, *string, *bool) (*models_pkg.GeocodeAddressResponse, error)
+    GeocodeReverse (string, string, *string) (*models_pkg.GeocodeReverseResponse, error)
 }
 
 /*

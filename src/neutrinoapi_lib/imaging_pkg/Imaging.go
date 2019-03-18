@@ -12,13 +12,13 @@ import "neutrinoapi_lib/configuration_pkg"
  * Interface for the IMAGING_IMPL
  */
 type IMAGING interface {
-    ImageResize (string, int64, int64, *string) ([]byte, error)
+    ImageWatermark (string, string, *int64, *string, *string, *int64, *int64) ([]byte, error)
 
     QRCode (string, *int64, *int64, *string, *string) ([]byte, error)
 
-    ImageWatermark (string, string, *int64, *string, *string, *int64, *int64) ([]byte, error)
+    ImageResize (string, int64, int64, *string) ([]byte, error)
 
-    HTML5Render (string, *string, *string, *string, *int64, *int64, *int64, *int64, *int64, *bool, *int64, *bool, *bool, *bool, *bool, *string, *int64, *int64, *int64, *string, *string, *string, *int64, *string, *int64, *bool, *string, *string, *string, *int64, *string, *int64, *bool, *int64, *int64) ([]byte, error)
+    HTML5Render (string, *string, *string, *string, *int64, *int64, *int64, *int64, *int64, *bool, *float64, *bool, *bool, *bool, *bool, *string, *int64, *int64, *int64, *string, *string, *string, *int64, *string, *int64, *bool, *string, *string, *string, *int64, *string, *int64, *bool, *int64, *int64) ([]byte, error)
 }
 
 /*

@@ -8,25 +8,25 @@ package NeutrinoAPIClient
 
 import(
 	"neutrinoapi_lib/configuration_pkg"
+	"neutrinoapi_lib/www_pkg"
 	"neutrinoapi_lib/imaging_pkg"
 	"neutrinoapi_lib/telephony_pkg"
-	"neutrinoapi_lib/datatools_pkg"
-	"neutrinoapi_lib/securityandnetworking_pkg"
-	"neutrinoapi_lib/geolocation_pkg"
 	"neutrinoapi_lib/ecommerce_pkg"
-	"neutrinoapi_lib/www_pkg"
+	"neutrinoapi_lib/geolocation_pkg"
+	"neutrinoapi_lib/securityandnetworking_pkg"
+	"neutrinoapi_lib/datatools_pkg"
 )
 /*
  * Client structure as interface implementation
  */
 type NEUTRINOAPI_IMPL struct {
+     www www_pkg.WWW
      imaging imaging_pkg.IMAGING
      telephony telephony_pkg.TELEPHONY
-     datatools datatools_pkg.DATATOOLS
-     securityandnetworking securityandnetworking_pkg.SECURITYANDNETWORKING
-     geolocation geolocation_pkg.GEOLOCATION
      ecommerce ecommerce_pkg.ECOMMERCE
-     www www_pkg.WWW
+     geolocation geolocation_pkg.GEOLOCATION
+     securityandnetworking securityandnetworking_pkg.SECURITYANDNETWORKING
+     datatools datatools_pkg.DATATOOLS
      config  configuration_pkg.CONFIGURATION
 }
 
@@ -36,6 +36,16 @@ type NEUTRINOAPI_IMPL struct {
 */
 func (me *NEUTRINOAPI_IMPL) Configuration() configuration_pkg.CONFIGURATION {
     return me.config
+}
+/**
+     * Access to WWW controller
+     * @return Returns the WWW() instance
+*/
+func (me * NEUTRINOAPI_IMPL) WWW() www_pkg.WWW {
+    if(me.www) == nil {
+        me.www = www_pkg.NewWWW(me.config)
+    }
+    return me.www
 }
 /**
      * Access to Imaging controller
@@ -58,24 +68,14 @@ func (me * NEUTRINOAPI_IMPL) Telephony() telephony_pkg.TELEPHONY {
     return me.telephony
 }
 /**
-     * Access to DataTools controller
-     * @return Returns the DataTools() instance
+     * Access to ECommerce controller
+     * @return Returns the ECommerce() instance
 */
-func (me * NEUTRINOAPI_IMPL) DataTools() datatools_pkg.DATATOOLS {
-    if(me.datatools) == nil {
-        me.datatools = datatools_pkg.NewDATATOOLS(me.config)
+func (me * NEUTRINOAPI_IMPL) ECommerce() ecommerce_pkg.ECOMMERCE {
+    if(me.ecommerce) == nil {
+        me.ecommerce = ecommerce_pkg.NewECOMMERCE(me.config)
     }
-    return me.datatools
-}
-/**
-     * Access to SecurityAndNetworking controller
-     * @return Returns the SecurityAndNetworking() instance
-*/
-func (me * NEUTRINOAPI_IMPL) SecurityAndNetworking() securityandnetworking_pkg.SECURITYANDNETWORKING {
-    if(me.securityandnetworking) == nil {
-        me.securityandnetworking = securityandnetworking_pkg.NewSECURITYANDNETWORKING(me.config)
-    }
-    return me.securityandnetworking
+    return me.ecommerce
 }
 /**
      * Access to Geolocation controller
@@ -88,23 +88,23 @@ func (me * NEUTRINOAPI_IMPL) Geolocation() geolocation_pkg.GEOLOCATION {
     return me.geolocation
 }
 /**
-     * Access to ECommerce controller
-     * @return Returns the ECommerce() instance
+     * Access to SecurityAndNetworking controller
+     * @return Returns the SecurityAndNetworking() instance
 */
-func (me * NEUTRINOAPI_IMPL) ECommerce() ecommerce_pkg.ECOMMERCE {
-    if(me.ecommerce) == nil {
-        me.ecommerce = ecommerce_pkg.NewECOMMERCE(me.config)
+func (me * NEUTRINOAPI_IMPL) SecurityAndNetworking() securityandnetworking_pkg.SECURITYANDNETWORKING {
+    if(me.securityandnetworking) == nil {
+        me.securityandnetworking = securityandnetworking_pkg.NewSECURITYANDNETWORKING(me.config)
     }
-    return me.ecommerce
+    return me.securityandnetworking
 }
 /**
-     * Access to WWW controller
-     * @return Returns the WWW() instance
+     * Access to DataTools controller
+     * @return Returns the DataTools() instance
 */
-func (me * NEUTRINOAPI_IMPL) WWW() www_pkg.WWW {
-    if(me.www) == nil {
-        me.www = www_pkg.NewWWW(me.config)
+func (me * NEUTRINOAPI_IMPL) DataTools() datatools_pkg.DATATOOLS {
+    if(me.datatools) == nil {
+        me.datatools = datatools_pkg.NewDATATOOLS(me.config)
     }
-    return me.www
+    return me.datatools
 }
 

@@ -13,13 +13,13 @@ import "neutrinoapi_lib/configuration_pkg"
  * Interface for the SECURITYANDNETWORKING_IMPL
  */
 type SECURITYANDNETWORKING interface {
-    HostReputation (string, *int64) (*models_pkg.HostReputationResponse, error)
-
-    IPProbe (string) (*models_pkg.IPProbeResponse, error)
-
     IPBlocklist (string) (*models_pkg.IPBlocklistResponse, error)
 
     EmailVerify (string, *bool) (*models_pkg.EmailVerifyResponse, error)
+
+    HostReputation (string, *int64) (*models_pkg.HostReputationResponse, error)
+
+    IPProbe (string) (*models_pkg.IPProbeResponse, error)
 }
 
 /*

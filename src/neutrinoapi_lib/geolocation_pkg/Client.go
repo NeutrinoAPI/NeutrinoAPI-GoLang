@@ -24,18 +24,20 @@ type GEOLOCATION_IMPL struct {
 }
 
 /**
- * Convert a geographic coordinate (latitude and longitude) into a real world address or location. See: https://www.neutrinoapi.com/api/geocode-reverse/
- * @param    string         latitude          parameter: Required
- * @param    string         longitude         parameter: Required
+ * Geocode an address, partial address or just the name of a place. See: https://www.neutrinoapi.com/api/geocode-address/
+ * @param    string         address           parameter: Required
+ * @param    *string        countryCode       parameter: Optional
  * @param    *string        languageCode      parameter: Optional
- * @return	Returns the *models_pkg.GeocodeReverseResponse response from the API call
+ * @param    *bool          fuzzySearch       parameter: Optional
+ * @return	Returns the *models_pkg.GeocodeAddressResponse response from the API call
  */
-func (me *GEOLOCATION_IMPL) GeocodeReverse (
-            latitude string,
-            longitude string,
-            languageCode *string) (*models_pkg.GeocodeReverseResponse, error) {
+func (me *GEOLOCATION_IMPL) GeocodeAddress (
+            address string,
+            countryCode *string,
+            languageCode *string,
+            fuzzySearch *bool) (*models_pkg.GeocodeAddressResponse, error) {
     //the endpoint path uri
-    _pathUrl := "/geocode-reverse"
+    _pathUrl := "/geocode-address"
 
     //variable to hold errors
     var err error = nil
@@ -71,9 +73,10 @@ func (me *GEOLOCATION_IMPL) GeocodeReverse (
     parameters := map[string]interface{} {
 
         "output-case" : "camel",
-        "latitude" : latitude,
-        "longitude" : longitude,
+        "address" : address,
+        "country-code" : countryCode,
         "language-code" : apihelper_pkg.ToString(*languageCode, "en"),
+        "fuzzy-search" : apihelper_pkg.ToString(*fuzzySearch, false),
 
     }
 
@@ -103,7 +106,7 @@ func (me *GEOLOCATION_IMPL) GeocodeReverse (
     }
 
     //returning the response
-    var retVal *models_pkg.GeocodeReverseResponse = &models_pkg.GeocodeReverseResponse{}
+    var retVal *models_pkg.GeocodeAddressResponse = &models_pkg.GeocodeAddressResponse{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {
@@ -203,20 +206,18 @@ func (me *GEOLOCATION_IMPL) IPInfo (
 }
 
 /**
- * Geocode an address, partial address or just the name of a place. See: https://www.neutrinoapi.com/api/geocode-address/
- * @param    string         address           parameter: Required
- * @param    *string        countryCode       parameter: Optional
+ * Convert a geographic coordinate (latitude and longitude) into a real world address or location. See: https://www.neutrinoapi.com/api/geocode-reverse/
+ * @param    string         latitude          parameter: Required
+ * @param    string         longitude         parameter: Required
  * @param    *string        languageCode      parameter: Optional
- * @param    *bool          fuzzySearch       parameter: Optional
- * @return	Returns the *models_pkg.GeocodeAddressResponse response from the API call
+ * @return	Returns the *models_pkg.GeocodeReverseResponse response from the API call
  */
-func (me *GEOLOCATION_IMPL) GeocodeAddress (
-            address string,
-            countryCode *string,
-            languageCode *string,
-            fuzzySearch *bool) (*models_pkg.GeocodeAddressResponse, error) {
+func (me *GEOLOCATION_IMPL) GeocodeReverse (
+            latitude string,
+            longitude string,
+            languageCode *string) (*models_pkg.GeocodeReverseResponse, error) {
     //the endpoint path uri
-    _pathUrl := "/geocode-address"
+    _pathUrl := "/geocode-reverse"
 
     //variable to hold errors
     var err error = nil
@@ -252,10 +253,9 @@ func (me *GEOLOCATION_IMPL) GeocodeAddress (
     parameters := map[string]interface{} {
 
         "output-case" : "camel",
-        "address" : address,
-        "country-code" : countryCode,
+        "latitude" : latitude,
+        "longitude" : longitude,
         "language-code" : apihelper_pkg.ToString(*languageCode, "en"),
-        "fuzzy-search" : apihelper_pkg.ToString(*fuzzySearch, false),
 
     }
 
@@ -285,7 +285,7 @@ func (me *GEOLOCATION_IMPL) GeocodeAddress (
     }
 
     //returning the response
-    var retVal *models_pkg.GeocodeAddressResponse = &models_pkg.GeocodeAddressResponse{}
+    var retVal *models_pkg.GeocodeReverseResponse = &models_pkg.GeocodeReverseResponse{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {

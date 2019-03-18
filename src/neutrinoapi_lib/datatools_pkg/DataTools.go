@@ -13,15 +13,15 @@ import "neutrinoapi_lib/configuration_pkg"
  * Interface for the DATATOOLS_IMPL
  */
 type DATATOOLS interface {
-    EmailValidate (string, *bool) (*models_pkg.EmailValidateResponse, error)
-
-    BadWordFilter (string, *string) (*models_pkg.BadWordFilterResponse, error)
-
-    Convert (string, string, string) (*models_pkg.ConvertResponse, error)
+    UserAgentInfo (string) (*models_pkg.UserAgentInfoResponse, error)
 
     PhoneValidate (string, *string, *string) (*models_pkg.PhoneValidateResponse, error)
 
-    UserAgentInfo (string) (*models_pkg.UserAgentInfoResponse, error)
+    Convert (string, string, string) (*models_pkg.ConvertResponse, error)
+
+    BadWordFilter (string, *string) (*models_pkg.BadWordFilterResponse, error)
+
+    EmailValidate (string, *bool) (*models_pkg.EmailValidateResponse, error)
 }
 
 /*

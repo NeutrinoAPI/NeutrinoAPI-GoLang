@@ -13,11 +13,11 @@ import "neutrinoapi_lib/configuration_pkg"
  * Interface for the WWW_IMPL
  */
 type WWW interface {
-    URLInfo (string, *bool) (*models_pkg.URLInfoResponse, error)
-
     BrowserBot (string, *int64, *int64, *string, []string, *string, *bool) (*models_pkg.BrowserBotResponse, error)
 
     HTMLClean (string, string) ([]byte, error)
+
+    URLInfo (string, *bool) (*models_pkg.URLInfoResponse, error)
 }
 
 /*
