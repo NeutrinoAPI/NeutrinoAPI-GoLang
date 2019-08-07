@@ -6,18 +6,18 @@
 
 package www_pkg
 
-import "neutrinoapi_lib/models_pkg"
 import "neutrinoapi_lib/configuration_pkg"
+import "neutrinoapi_lib/models_pkg"
 
 /*
  * Interface for the WWW_IMPL
  */
 type WWW interface {
-    BrowserBot (string, *int64, *int64, *string, []string, *string, *bool) (*models_pkg.BrowserBotResponse, error)
+    URLInfo (string, *bool, *bool, *int64) (*models_pkg.URLInfoResponse, error)
 
     HTMLClean (string, string) ([]byte, error)
 
-    URLInfo (string, *bool) (*models_pkg.URLInfoResponse, error)
+    BrowserBot (string, *int64, *int64, *string, []string, *string, *bool) (*models_pkg.BrowserBotResponse, error)
 }
 
 /*

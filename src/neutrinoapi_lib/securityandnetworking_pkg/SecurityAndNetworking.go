@@ -6,20 +6,20 @@
 
 package securityandnetworking_pkg
 
-import "neutrinoapi_lib/models_pkg"
 import "neutrinoapi_lib/configuration_pkg"
+import "neutrinoapi_lib/models_pkg"
 
 /*
  * Interface for the SECURITYANDNETWORKING_IMPL
  */
 type SECURITYANDNETWORKING interface {
-    IPBlocklist (string) (*models_pkg.IPBlocklistResponse, error)
+    IPProbe (string) (*models_pkg.IPProbeResponse, error)
 
     EmailVerify (string, *bool) (*models_pkg.EmailVerifyResponse, error)
 
-    HostReputation (string, *int64) (*models_pkg.HostReputationResponse, error)
+    IPBlocklist (string) (*models_pkg.IPBlocklistResponse, error)
 
-    IPProbe (string) (*models_pkg.IPProbeResponse, error)
+    HostReputation (string, *int64) (*models_pkg.HostReputationResponse, error)
 }
 
 /*

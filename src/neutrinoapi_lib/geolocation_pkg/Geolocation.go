@@ -6,18 +6,18 @@
 
 package geolocation_pkg
 
-import "neutrinoapi_lib/models_pkg"
 import "neutrinoapi_lib/configuration_pkg"
+import "neutrinoapi_lib/models_pkg"
 
 /*
  * Interface for the GEOLOCATION_IMPL
  */
 type GEOLOCATION interface {
-    GeocodeAddress (string, *string, *string, *bool) (*models_pkg.GeocodeAddressResponse, error)
+    GeocodeReverse (string, string, *string, *string) (*models_pkg.GeocodeReverseResponse, error)
 
     IPInfo (string, *bool) (*models_pkg.IPInfoResponse, error)
 
-    GeocodeReverse (string, string, *string) (*models_pkg.GeocodeReverseResponse, error)
+    GeocodeAddress (string, *string, *string, *bool) (*models_pkg.GeocodeAddressResponse, error)
 }
 
 /*

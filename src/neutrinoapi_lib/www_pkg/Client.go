@@ -8,13 +8,11 @@ package www_pkg
 
 
 import(
-	"errors"
-	"fmt"
 	"encoding/json"
-	"neutrinoapi_lib/models_pkg"
 	"github.com/apimatic/unirest-go"
 	"neutrinoapi_lib/apihelper_pkg"
 	"neutrinoapi_lib/configuration_pkg"
+	"neutrinoapi_lib/models_pkg"
 )
 /*
  * Client structure as interface implementation
@@ -24,26 +22,20 @@ type WWW_IMPL struct {
 }
 
 /**
- * Browser bot can extract content, interact with keyboard and mouse events, and execute JavaScript on a website. See: https://www.neutrinoapi.com/api/browser-bot/
- * @param    string          url                           parameter: Required
- * @param    *int64          timeout                       parameter: Optional
- * @param    *int64          delay                         parameter: Optional
- * @param    *string         selector                      parameter: Optional
- * @param    []string        exec                          parameter: Optional
- * @param    *string         userAgent                     parameter: Optional
- * @param    *bool           ignoreCertificateErrors       parameter: Optional
- * @return	Returns the *models_pkg.BrowserBotResponse response from the API call
+ * Parse, analyze and retrieve content from the supplied URL. See: https://www.neutrinoapi.com/api/url-info/
+ * @param    string        url                           parameter: Required
+ * @param    *bool         fetchContent                  parameter: Optional
+ * @param    *bool         ignoreCertificateErrors       parameter: Optional
+ * @param    *int64        timeout                       parameter: Optional
+ * @return	Returns the *models_pkg.URLInfoResponse response from the API call
  */
-func (me *WWW_IMPL) BrowserBot (
+func (me *WWW_IMPL) URLInfo (
             url string,
-            timeout *int64,
-            delay *int64,
-            selector *string,
-            exec []string,
-            userAgent *string,
-            ignoreCertificateErrors *bool) (*models_pkg.BrowserBotResponse, error) {
+            fetchContent *bool,
+            ignoreCertificateErrors *bool,
+            timeout *int64) (*models_pkg.URLInfoResponse, error) {
     //the endpoint path uri
-    _pathUrl := "/browser-bot"
+    _pathUrl := "/url-info"
 
     //variable to hold errors
     var err error = nil
@@ -80,12 +72,9 @@ func (me *WWW_IMPL) BrowserBot (
 
         "output-case" : "camel",
         "url" : url,
-        "timeout" : apihelper_pkg.ToString(*timeout, "30"),
-        "delay" : apihelper_pkg.ToString(*delay, "2"),
-        "selector" : selector,
-        "exec" : apihelper_pkg.ToString(*exec, "[]"),
-        "user-agent" : userAgent,
+        "fetch-content" : apihelper_pkg.ToString(*fetchContent, false),
         "ignore-certificate-errors" : apihelper_pkg.ToString(*ignoreCertificateErrors, false),
+        "timeout" : apihelper_pkg.ToString(*timeout, "20"),
 
     }
 
@@ -101,11 +90,13 @@ func (me *WWW_IMPL) BrowserBot (
 
     //error handling using HTTP status codes
     if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check the error code for details", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check error code for details", _response.Code, _response.RawBody)
     } else if (_response.Code == 403) {
-        err = apihelper_pkg.NewAPIError("You have failed to authenticate or are using an invalid API path", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("You have failed to authenticate", _response.Code, _response.RawBody)
     } else if (_response.Code == 500) {
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
+    } else if (_response.Code == 0) {
+        err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused an error", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
     }
@@ -115,7 +106,7 @@ func (me *WWW_IMPL) BrowserBot (
     }
 
     //returning the response
-    var retVal *models_pkg.BrowserBotResponse = &models_pkg.BrowserBotResponse{}
+    var retVal *models_pkg.URLInfoResponse = &models_pkg.URLInfoResponse{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {
@@ -187,11 +178,13 @@ func (me *WWW_IMPL) HTMLClean (
 
     //error handling using HTTP status codes
     if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check the error code for details", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check error code for details", _response.Code, _response.RawBody)
     } else if (_response.Code == 403) {
-        err = apihelper_pkg.NewAPIError("You have failed to authenticate or are using an invalid API path", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("You have failed to authenticate", _response.Code, _response.RawBody)
     } else if (_response.Code == 500) {
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
+    } else if (_response.Code == 0) {
+        err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused an error", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
     }
@@ -206,16 +199,26 @@ func (me *WWW_IMPL) HTMLClean (
 }
 
 /**
- * Parse, analyze and retrieve content from the supplied URL. See: https://www.neutrinoapi.com/api/url-info/
- * @param    string        url               parameter: Required
- * @param    *bool         fetchContent      parameter: Optional
- * @return	Returns the *models_pkg.URLInfoResponse response from the API call
+ * Browser bot can extract content, interact with keyboard and mouse events, and execute JavaScript on a website. See: https://www.neutrinoapi.com/api/browser-bot/
+ * @param    string          url                           parameter: Required
+ * @param    *int64          timeout                       parameter: Optional
+ * @param    *int64          delay                         parameter: Optional
+ * @param    *string         selector                      parameter: Optional
+ * @param    []string        exec                          parameter: Optional
+ * @param    *string         userAgent                     parameter: Optional
+ * @param    *bool           ignoreCertificateErrors       parameter: Optional
+ * @return	Returns the *models_pkg.BrowserBotResponse response from the API call
  */
-func (me *WWW_IMPL) URLInfo (
+func (me *WWW_IMPL) BrowserBot (
             url string,
-            fetchContent *bool) (*models_pkg.URLInfoResponse, error) {
+            timeout *int64,
+            delay *int64,
+            selector *string,
+            exec []string,
+            userAgent *string,
+            ignoreCertificateErrors *bool) (*models_pkg.BrowserBotResponse, error) {
     //the endpoint path uri
-    _pathUrl := "/url-info"
+    _pathUrl := "/browser-bot"
 
     //variable to hold errors
     var err error = nil
@@ -252,7 +255,12 @@ func (me *WWW_IMPL) URLInfo (
 
         "output-case" : "camel",
         "url" : url,
-        "fetch-content" : apihelper_pkg.ToString(*fetchContent, false),
+        "timeout" : apihelper_pkg.ToString(*timeout, "30"),
+        "delay" : apihelper_pkg.ToString(*delay, "3"),
+        "selector" : selector,
+        "exec" : apihelper_pkg.ToString(*exec, "[]"),
+        "user-agent" : userAgent,
+        "ignore-certificate-errors" : apihelper_pkg.ToString(*ignoreCertificateErrors, false),
 
     }
 
@@ -268,11 +276,13 @@ func (me *WWW_IMPL) URLInfo (
 
     //error handling using HTTP status codes
     if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check the error code for details", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check error code for details", _response.Code, _response.RawBody)
     } else if (_response.Code == 403) {
-        err = apihelper_pkg.NewAPIError("You have failed to authenticate or are using an invalid API path", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("You have failed to authenticate", _response.Code, _response.RawBody)
     } else if (_response.Code == 500) {
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
+    } else if (_response.Code == 0) {
+        err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused an error", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
     }
@@ -282,7 +292,7 @@ func (me *WWW_IMPL) URLInfo (
     }
 
     //returning the response
-    var retVal *models_pkg.URLInfoResponse = &models_pkg.URLInfoResponse{}
+    var retVal *models_pkg.BrowserBotResponse = &models_pkg.BrowserBotResponse{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {

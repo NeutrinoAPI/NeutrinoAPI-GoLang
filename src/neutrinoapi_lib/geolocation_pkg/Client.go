@@ -8,13 +8,11 @@ package geolocation_pkg
 
 
 import(
-	"errors"
-	"fmt"
 	"encoding/json"
-	"neutrinoapi_lib/models_pkg"
 	"github.com/apimatic/unirest-go"
 	"neutrinoapi_lib/apihelper_pkg"
 	"neutrinoapi_lib/configuration_pkg"
+	"neutrinoapi_lib/models_pkg"
 )
 /*
  * Client structure as interface implementation
@@ -24,20 +22,20 @@ type GEOLOCATION_IMPL struct {
 }
 
 /**
- * Geocode an address, partial address or just the name of a place. See: https://www.neutrinoapi.com/api/geocode-address/
- * @param    string         address           parameter: Required
- * @param    *string        countryCode       parameter: Optional
+ * Convert a geographic coordinate (latitude and longitude) into a real world address. See: https://www.neutrinoapi.com/api/geocode-reverse/
+ * @param    string         latitude          parameter: Required
+ * @param    string         longitude         parameter: Required
  * @param    *string        languageCode      parameter: Optional
- * @param    *bool          fuzzySearch       parameter: Optional
- * @return	Returns the *models_pkg.GeocodeAddressResponse response from the API call
+ * @param    *string        zoom              parameter: Optional
+ * @return	Returns the *models_pkg.GeocodeReverseResponse response from the API call
  */
-func (me *GEOLOCATION_IMPL) GeocodeAddress (
-            address string,
-            countryCode *string,
+func (me *GEOLOCATION_IMPL) GeocodeReverse (
+            latitude string,
+            longitude string,
             languageCode *string,
-            fuzzySearch *bool) (*models_pkg.GeocodeAddressResponse, error) {
+            zoom *string) (*models_pkg.GeocodeReverseResponse, error) {
     //the endpoint path uri
-    _pathUrl := "/geocode-address"
+    _pathUrl := "/geocode-reverse"
 
     //variable to hold errors
     var err error = nil
@@ -73,10 +71,10 @@ func (me *GEOLOCATION_IMPL) GeocodeAddress (
     parameters := map[string]interface{} {
 
         "output-case" : "camel",
-        "address" : address,
-        "country-code" : countryCode,
+        "latitude" : latitude,
+        "longitude" : longitude,
         "language-code" : apihelper_pkg.ToString(*languageCode, "en"),
-        "fuzzy-search" : apihelper_pkg.ToString(*fuzzySearch, false),
+        "zoom" : apihelper_pkg.ToString(*zoom, "address"),
 
     }
 
@@ -92,11 +90,13 @@ func (me *GEOLOCATION_IMPL) GeocodeAddress (
 
     //error handling using HTTP status codes
     if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check the error code for details", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check error code for details", _response.Code, _response.RawBody)
     } else if (_response.Code == 403) {
-        err = apihelper_pkg.NewAPIError("You have failed to authenticate or are using an invalid API path", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("You have failed to authenticate", _response.Code, _response.RawBody)
     } else if (_response.Code == 500) {
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
+    } else if (_response.Code == 0) {
+        err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused an error", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
     }
@@ -106,7 +106,7 @@ func (me *GEOLOCATION_IMPL) GeocodeAddress (
     }
 
     //returning the response
-    var retVal *models_pkg.GeocodeAddressResponse = &models_pkg.GeocodeAddressResponse{}
+    var retVal *models_pkg.GeocodeReverseResponse = &models_pkg.GeocodeReverseResponse{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {
@@ -180,11 +180,13 @@ func (me *GEOLOCATION_IMPL) IPInfo (
 
     //error handling using HTTP status codes
     if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check the error code for details", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check error code for details", _response.Code, _response.RawBody)
     } else if (_response.Code == 403) {
-        err = apihelper_pkg.NewAPIError("You have failed to authenticate or are using an invalid API path", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("You have failed to authenticate", _response.Code, _response.RawBody)
     } else if (_response.Code == 500) {
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
+    } else if (_response.Code == 0) {
+        err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused an error", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
     }
@@ -206,18 +208,20 @@ func (me *GEOLOCATION_IMPL) IPInfo (
 }
 
 /**
- * Convert a geographic coordinate (latitude and longitude) into a real world address or location. See: https://www.neutrinoapi.com/api/geocode-reverse/
- * @param    string         latitude          parameter: Required
- * @param    string         longitude         parameter: Required
+ * Geocode an address, partial address or just the name of a place. See: https://www.neutrinoapi.com/api/geocode-address/
+ * @param    string         address           parameter: Required
+ * @param    *string        countryCode       parameter: Optional
  * @param    *string        languageCode      parameter: Optional
- * @return	Returns the *models_pkg.GeocodeReverseResponse response from the API call
+ * @param    *bool          fuzzySearch       parameter: Optional
+ * @return	Returns the *models_pkg.GeocodeAddressResponse response from the API call
  */
-func (me *GEOLOCATION_IMPL) GeocodeReverse (
-            latitude string,
-            longitude string,
-            languageCode *string) (*models_pkg.GeocodeReverseResponse, error) {
+func (me *GEOLOCATION_IMPL) GeocodeAddress (
+            address string,
+            countryCode *string,
+            languageCode *string,
+            fuzzySearch *bool) (*models_pkg.GeocodeAddressResponse, error) {
     //the endpoint path uri
-    _pathUrl := "/geocode-reverse"
+    _pathUrl := "/geocode-address"
 
     //variable to hold errors
     var err error = nil
@@ -253,9 +257,10 @@ func (me *GEOLOCATION_IMPL) GeocodeReverse (
     parameters := map[string]interface{} {
 
         "output-case" : "camel",
-        "latitude" : latitude,
-        "longitude" : longitude,
+        "address" : address,
+        "country-code" : countryCode,
         "language-code" : apihelper_pkg.ToString(*languageCode, "en"),
+        "fuzzy-search" : apihelper_pkg.ToString(*fuzzySearch, false),
 
     }
 
@@ -271,11 +276,13 @@ func (me *GEOLOCATION_IMPL) GeocodeReverse (
 
     //error handling using HTTP status codes
     if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check the error code for details", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check error code for details", _response.Code, _response.RawBody)
     } else if (_response.Code == 403) {
-        err = apihelper_pkg.NewAPIError("You have failed to authenticate or are using an invalid API path", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("You have failed to authenticate", _response.Code, _response.RawBody)
     } else if (_response.Code == 500) {
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
+    } else if (_response.Code == 0) {
+        err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused an error", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
     }
@@ -285,7 +292,7 @@ func (me *GEOLOCATION_IMPL) GeocodeReverse (
     }
 
     //returning the response
-    var retVal *models_pkg.GeocodeReverseResponse = &models_pkg.GeocodeReverseResponse{}
+    var retVal *models_pkg.GeocodeAddressResponse = &models_pkg.GeocodeAddressResponse{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {

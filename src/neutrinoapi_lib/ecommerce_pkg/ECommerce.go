@@ -6,8 +6,8 @@
 
 package ecommerce_pkg
 
-import "neutrinoapi_lib/models_pkg"
 import "neutrinoapi_lib/configuration_pkg"
+import "neutrinoapi_lib/models_pkg"
 
 /*
  * Interface for the ECOMMERCE_IMPL

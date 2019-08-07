@@ -8,13 +8,11 @@ package ecommerce_pkg
 
 
 import(
-	"errors"
-	"fmt"
 	"encoding/json"
-	"neutrinoapi_lib/models_pkg"
 	"github.com/apimatic/unirest-go"
 	"neutrinoapi_lib/apihelper_pkg"
 	"neutrinoapi_lib/configuration_pkg"
+	"neutrinoapi_lib/models_pkg"
 )
 /*
  * Client structure as interface implementation
@@ -86,11 +84,13 @@ func (me *ECOMMERCE_IMPL) BINLookup (
 
     //error handling using HTTP status codes
     if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check the error code for details", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check error code for details", _response.Code, _response.RawBody)
     } else if (_response.Code == 403) {
-        err = apihelper_pkg.NewAPIError("You have failed to authenticate or are using an invalid API path", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("You have failed to authenticate", _response.Code, _response.RawBody)
     } else if (_response.Code == 500) {
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
+    } else if (_response.Code == 0) {
+        err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused an error", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
     }

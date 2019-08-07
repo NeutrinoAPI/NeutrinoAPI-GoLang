@@ -8,8 +8,6 @@ package imaging_pkg
 
 
 import(
-	"errors"
-	"fmt"
 	"github.com/apimatic/unirest-go"
 	"neutrinoapi_lib/apihelper_pkg"
 	"neutrinoapi_lib/configuration_pkg"
@@ -22,26 +20,20 @@ type IMAGING_IMPL struct {
 }
 
 /**
- * Watermark one image with another image. See: https://www.neutrinoapi.com/api/image-watermark/
- * @param    string         imageUrl          parameter: Required
- * @param    string         watermarkUrl      parameter: Required
- * @param    *int64         opacity           parameter: Optional
- * @param    *string        format            parameter: Optional
- * @param    *string        position          parameter: Optional
- * @param    *int64         width             parameter: Optional
- * @param    *int64         height            parameter: Optional
+ * Resize an image and output as either JPEG or PNG. See: https://www.neutrinoapi.com/api/image-resize/
+ * @param    string         imageUrl      parameter: Required
+ * @param    int64          width         parameter: Required
+ * @param    int64          height        parameter: Required
+ * @param    *string        format        parameter: Optional
  * @return	Returns the []byte response from the API call
  */
-func (me *IMAGING_IMPL) ImageWatermark (
+func (me *IMAGING_IMPL) ImageResize (
             imageUrl string,
-            watermarkUrl string,
-            opacity *int64,
-            format *string,
-            position *string,
-            width *int64,
-            height *int64) ([]byte, error) {
+            width int64,
+            height int64,
+            format *string) ([]byte, error) {
     //the endpoint path uri
-    _pathUrl := "/image-watermark"
+    _pathUrl := "/image-resize"
 
     //variable to hold errors
     var err error = nil
@@ -76,12 +68,9 @@ func (me *IMAGING_IMPL) ImageWatermark (
     parameters := map[string]interface{} {
 
         "image-url" : imageUrl,
-        "watermark-url" : watermarkUrl,
-        "opacity" : apihelper_pkg.ToString(*opacity, "50"),
-        "format" : apihelper_pkg.ToString(*format, "png"),
-        "position" : apihelper_pkg.ToString(*position, "center"),
         "width" : width,
         "height" : height,
+        "format" : apihelper_pkg.ToString(*format, "png"),
 
     }
 
@@ -97,11 +86,13 @@ func (me *IMAGING_IMPL) ImageWatermark (
 
     //error handling using HTTP status codes
     if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check the error code for details", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check error code for details", _response.Code, _response.RawBody)
     } else if (_response.Code == 403) {
-        err = apihelper_pkg.NewAPIError("You have failed to authenticate or are using an invalid API path", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("You have failed to authenticate", _response.Code, _response.RawBody)
     } else if (_response.Code == 500) {
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
+    } else if (_response.Code == 0) {
+        err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused an error", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
     }
@@ -185,11 +176,13 @@ func (me *IMAGING_IMPL) QRCode (
 
     //error handling using HTTP status codes
     if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check the error code for details", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check error code for details", _response.Code, _response.RawBody)
     } else if (_response.Code == 403) {
-        err = apihelper_pkg.NewAPIError("You have failed to authenticate or are using an invalid API path", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("You have failed to authenticate", _response.Code, _response.RawBody)
     } else if (_response.Code == 500) {
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
+    } else if (_response.Code == 0) {
+        err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused an error", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
     }
@@ -204,20 +197,26 @@ func (me *IMAGING_IMPL) QRCode (
 }
 
 /**
- * Resize an image and output as either JPEG or PNG. See: https://www.neutrinoapi.com/api/image-resize/
- * @param    string         imageUrl      parameter: Required
- * @param    int64          width         parameter: Required
- * @param    int64          height        parameter: Required
- * @param    *string        format        parameter: Optional
+ * Watermark one image with another image. See: https://www.neutrinoapi.com/api/image-watermark/
+ * @param    string         imageUrl          parameter: Required
+ * @param    string         watermarkUrl      parameter: Required
+ * @param    *int64         opacity           parameter: Optional
+ * @param    *string        format            parameter: Optional
+ * @param    *string        position          parameter: Optional
+ * @param    *int64         width             parameter: Optional
+ * @param    *int64         height            parameter: Optional
  * @return	Returns the []byte response from the API call
  */
-func (me *IMAGING_IMPL) ImageResize (
+func (me *IMAGING_IMPL) ImageWatermark (
             imageUrl string,
-            width int64,
-            height int64,
-            format *string) ([]byte, error) {
+            watermarkUrl string,
+            opacity *int64,
+            format *string,
+            position *string,
+            width *int64,
+            height *int64) ([]byte, error) {
     //the endpoint path uri
-    _pathUrl := "/image-resize"
+    _pathUrl := "/image-watermark"
 
     //variable to hold errors
     var err error = nil
@@ -252,9 +251,12 @@ func (me *IMAGING_IMPL) ImageResize (
     parameters := map[string]interface{} {
 
         "image-url" : imageUrl,
+        "watermark-url" : watermarkUrl,
+        "opacity" : apihelper_pkg.ToString(*opacity, "50"),
+        "format" : apihelper_pkg.ToString(*format, "png"),
+        "position" : apihelper_pkg.ToString(*position, "center"),
         "width" : width,
         "height" : height,
-        "format" : apihelper_pkg.ToString(*format, "png"),
 
     }
 
@@ -270,11 +272,13 @@ func (me *IMAGING_IMPL) ImageResize (
 
     //error handling using HTTP status codes
     if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check the error code for details", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check error code for details", _response.Code, _response.RawBody)
     } else if (_response.Code == 403) {
-        err = apihelper_pkg.NewAPIError("You have failed to authenticate or are using an invalid API path", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("You have failed to authenticate", _response.Code, _response.RawBody)
     } else if (_response.Code == 500) {
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
+    } else if (_response.Code == 0) {
+        err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused an error", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
     }
@@ -290,41 +294,41 @@ func (me *IMAGING_IMPL) ImageResize (
 
 /**
  * Render HTML content to PDF, JPG or PNG. See: https://www.neutrinoapi.com/api/html5-render/
- * @param    string          content                parameter: Required
- * @param    *string         format                 parameter: Optional
- * @param    *string         pageSize               parameter: Optional
- * @param    *string         title                  parameter: Optional
- * @param    *int64          margin                 parameter: Optional
- * @param    *int64          marginLeft             parameter: Optional
- * @param    *int64          marginRight            parameter: Optional
- * @param    *int64          marginTop              parameter: Optional
- * @param    *int64          marginBottom           parameter: Optional
- * @param    *bool           landscape              parameter: Optional
- * @param    *float64        zoom                   parameter: Optional
- * @param    *bool           grayscale              parameter: Optional
- * @param    *bool           mediaPrint             parameter: Optional
- * @param    *bool           mediaQueries           parameter: Optional
- * @param    *bool           forms                  parameter: Optional
- * @param    *string         css                    parameter: Optional
- * @param    *int64          imageWidth             parameter: Optional
- * @param    *int64          imageHeight            parameter: Optional
- * @param    *int64          renderDelay            parameter: Optional
- * @param    *string         headerTextLeft         parameter: Optional
- * @param    *string         headerTextCenter       parameter: Optional
- * @param    *string         headerTextRight        parameter: Optional
- * @param    *int64          headerSize             parameter: Optional
- * @param    *string         headerFont             parameter: Optional
- * @param    *int64          headerFontSize         parameter: Optional
- * @param    *bool           headerLine             parameter: Optional
- * @param    *string         footerTextLeft         parameter: Optional
- * @param    *string         footerTextCenter       parameter: Optional
- * @param    *string         footerTextRight        parameter: Optional
- * @param    *int64          footerSize             parameter: Optional
- * @param    *string         footerFont             parameter: Optional
- * @param    *int64          footerFontSize         parameter: Optional
- * @param    *bool           footerLine             parameter: Optional
- * @param    *int64          pageWidth              parameter: Optional
- * @param    *int64          pageHeight             parameter: Optional
+ * @param    string         content                parameter: Required
+ * @param    *string        format                 parameter: Optional
+ * @param    *string        pageSize               parameter: Optional
+ * @param    *string        title                  parameter: Optional
+ * @param    *int64         margin                 parameter: Optional
+ * @param    *int64         marginLeft             parameter: Optional
+ * @param    *int64         marginRight            parameter: Optional
+ * @param    *int64         marginTop              parameter: Optional
+ * @param    *int64         marginBottom           parameter: Optional
+ * @param    *bool          landscape              parameter: Optional
+ * @param    *int64         zoom                   parameter: Optional
+ * @param    *bool          grayscale              parameter: Optional
+ * @param    *bool          mediaPrint             parameter: Optional
+ * @param    *bool          mediaQueries           parameter: Optional
+ * @param    *bool          forms                  parameter: Optional
+ * @param    *string        css                    parameter: Optional
+ * @param    *int64         imageWidth             parameter: Optional
+ * @param    *int64         imageHeight            parameter: Optional
+ * @param    *int64         renderDelay            parameter: Optional
+ * @param    *string        headerTextLeft         parameter: Optional
+ * @param    *string        headerTextCenter       parameter: Optional
+ * @param    *string        headerTextRight        parameter: Optional
+ * @param    *int64         headerSize             parameter: Optional
+ * @param    *string        headerFont             parameter: Optional
+ * @param    *int64         headerFontSize         parameter: Optional
+ * @param    *bool          headerLine             parameter: Optional
+ * @param    *string        footerTextLeft         parameter: Optional
+ * @param    *string        footerTextCenter       parameter: Optional
+ * @param    *string        footerTextRight        parameter: Optional
+ * @param    *int64         footerSize             parameter: Optional
+ * @param    *string        footerFont             parameter: Optional
+ * @param    *int64         footerFontSize         parameter: Optional
+ * @param    *bool          footerLine             parameter: Optional
+ * @param    *int64         pageWidth              parameter: Optional
+ * @param    *int64         pageHeight             parameter: Optional
  * @return	Returns the []byte response from the API call
  */
 func (me *IMAGING_IMPL) HTML5Render (
@@ -338,7 +342,7 @@ func (me *IMAGING_IMPL) HTML5Render (
             marginTop *int64,
             marginBottom *int64,
             landscape *bool,
-            zoom *float64,
+            zoom *int64,
             grayscale *bool,
             mediaPrint *bool,
             mediaQueries *bool,
@@ -449,11 +453,13 @@ func (me *IMAGING_IMPL) HTML5Render (
 
     //error handling using HTTP status codes
     if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check the error code for details", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("Your API request has been rejected. Check error code for details", _response.Code, _response.RawBody)
     } else if (_response.Code == 403) {
-        err = apihelper_pkg.NewAPIError("You have failed to authenticate or are using an invalid API path", _response.Code, _response.RawBody)
+        err = apihelper_pkg.NewAPIError("You have failed to authenticate", _response.Code, _response.RawBody)
     } else if (_response.Code == 500) {
         err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused a fatal exception", _response.Code, _response.RawBody)
+    } else if (_response.Code == 0) {
+        err = apihelper_pkg.NewAPIError("We messed up, sorry! Your request has caused an error", _response.Code, _response.RawBody)
     } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
             err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
     }
