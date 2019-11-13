@@ -65,8 +65,8 @@ func (me *IMAGING_IMPL) ImageResize(
 
 ```go
 imageUrl := "image-url"
-width,_ := strconv.ParseInt("110", 10, 8)
-height,_ := strconv.ParseInt("110", 10, 8)
+width,_ := strconv.ParseInt("214", 10, 8)
+height,_ := strconv.ParseInt("214", 10, 8)
 format := "png"
 
 var result []byte
@@ -152,8 +152,8 @@ watermarkUrl := "watermark-url"
 opacity,_ := strconv.ParseInt("50", 10, 8)
 format := "png"
 position := "center"
-width,_ := strconv.ParseInt("110", 10, 8)
-height,_ := strconv.ParseInt("110", 10, 8)
+width,_ := strconv.ParseInt("214", 10, 8)
+height,_ := strconv.ParseInt("214", 10, 8)
 
 var result []byte
 result,_ = imaging.ImageWatermark(imageUrl, watermarkUrl, opacity, format, position, width, height)
@@ -266,7 +266,7 @@ mediaQueries := false
 forms := false
 css := "css"
 imageWidth,_ := strconv.ParseInt("1024", 10, 8)
-imageHeight,_ := strconv.ParseInt("110", 10, 8)
+imageHeight,_ := strconv.ParseInt("214", 10, 8)
 renderDelay,_ := strconv.ParseInt("0", 10, 8)
 headerTextLeft := "header-text-left"
 headerTextCenter := "header-text-center"
@@ -282,8 +282,8 @@ footerSize,_ := strconv.ParseInt("9", 10, 8)
 footerFont := "Courier"
 footerFontSize,_ := strconv.ParseInt("11", 10, 8)
 footerLine := false
-pageWidth,_ := strconv.ParseInt("110", 10, 8)
-pageHeight,_ := strconv.ParseInt("110", 10, 8)
+pageWidth,_ := strconv.ParseInt("214", 10, 8)
+pageHeight,_ := strconv.ParseInt("214", 10, 8)
 
 var result []byte
 result,_ = imaging.HTML5Render(content, format, pageSize, title, margin, marginLeft, marginRight, marginTop, marginBottom, landscape, zoom, grayscale, mediaPrint, mediaQueries, forms, css, imageWidth, imageHeight, renderDelay, headerTextLeft, headerTextCenter, headerTextRight, headerSize, headerFont, headerFontSize, headerLine, footerTextLeft, footerTextCenter, footerTextRight, footerSize, footerFont, footerFontSize, footerLine, pageWidth, pageHeight)
@@ -422,7 +422,7 @@ func (me *TELEPHONY_IMPL) SMSVerify(
 ```go
 number := "number"
 codeLength,_ := strconv.ParseInt("5", 10, 8)
-securityCode,_ := strconv.ParseInt("110", 10, 8)
+securityCode,_ := strconv.ParseInt("214", 10, 8)
 countryCode := "country-code"
 languageCode := "en"
 
@@ -498,7 +498,7 @@ func (me *TELEPHONY_IMPL) PhoneVerify(
 ```go
 number := "number"
 codeLength,_ := strconv.ParseInt("6", 10, 8)
-securityCode,_ := strconv.ParseInt("110", 10, 8)
+securityCode,_ := strconv.ParseInt("214", 10, 8)
 playbackDelay,_ := strconv.ParseInt("800", 10, 8)
 countryCode := "country-code"
 languageCode := "en"
@@ -1070,7 +1070,7 @@ func (me *WWW_IMPL) BrowserBot(
 | timeout |  ``` Optional ```  ``` DefaultValue ```  | Timeout in seconds. Give up if still trying to load the page after this number of seconds |
 | delay |  ``` Optional ```  ``` DefaultValue ```  | Delay in seconds to wait before capturing any page data, executing selectors or JavaScript |
 | selector |  ``` Optional ```  | Extract content from the page DOM using this selector. Commonly known as a CSS selector, you can find a good reference <a href="https://www.w3schools.com/cssref/css_selectors.asp">here</a> |
-| exec |  ``` Optional ```  ``` Collection ```  ``` DefaultValue ```  | Execute JavaScript on the page. Each array element should contain a valid JavaScript statement in string form. If a statement returns any kind of value it will be returned in the 'exec-results' response. For your convenience you can also use the following special shortcut functions: <div> sleep(seconds); Just wait/sleep for the specified number of seconds. click('selector'); Click on the first element matching the given selector. focus('selector'); Focus on the first element matching the given selector. keys('characters'); Send the specified keyboard characters. Use click() or focus() first to send keys to a specific element. enter(); Send the Enter key. tab(); Send the Tab key. </div> Example: <div> [ "click('#button-id')", "sleep(1)", "click('.field-class')", "keys('1234')", "enter()" ] </div> |
+| exec |  ``` Optional ```  ``` Collection ```  | Execute JavaScript on the page. Each array element should contain a valid JavaScript statement in string form. If a statement returns any kind of value it will be returned in the 'exec-results' response. For your convenience you can also use the following special shortcut functions: <div> sleep(seconds); Just wait/sleep for the specified number of seconds. click('selector'); Click on the first element matching the given selector. focus('selector'); Focus on the first element matching the given selector. keys('characters'); Send the specified keyboard characters. Use click() or focus() first to send keys to a specific element. enter(); Send the Enter key. tab(); Send the Tab key. </div> Example: <div> [ "click('#button-id')", "sleep(1)", "click('.field-class')", "keys('1234')", "enter()" ] </div> |
 | userAgent |  ``` Optional ```  | Override the browsers default user-agent string with this one |
 | ignoreCertificateErrors |  ``` Optional ```  ``` DefaultValue ```  | Ignore any TLS/SSL certificate errors and load the page anyway |
 
@@ -1082,9 +1082,7 @@ url := "url"
 timeout,_ := strconv.ParseInt("30", 10, 8)
 delay,_ := strconv.ParseInt("3", 10, 8)
 selector := "selector"
-execValue := []byte("[]")
-var exec []string
-json.Unmarshal(execValue,&exec)
+exec := []string{"exec"}
 userAgent := "user-agent"
 ignoreCertificateErrors := false
 

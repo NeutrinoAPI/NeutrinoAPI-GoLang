@@ -6,11 +6,30 @@
 
 package configuration_pkg
 
+import(
+	"neutrinoapi_lib/apihelper_pkg"
+)
+/* Setting up enums for Environments and Servers 
+*/
+type Environments int
 
-/** The base Uri for API calls */
-const BASEURI string = "https://neutrinoapi.com"
+type Servers int
 
+// Environment Enums
+const (
+     MULTICLOUD Environments = 1 + iota
+     //AWS endpoint
+     AWS
+     //GCP endpoint
+     GCP
+     //MS Azure endpoint
+     MSA
+)
 
+// Servers Enums
+const (
+ 	 ENUM_DEFAULT Servers = 1 + iota
+)
 
 type CONFIGURATION_IMPL struct {
     /** Your user ID */
@@ -49,3 +68,41 @@ func (me *CONFIGURATION_IMPL) SetApiKey(apiKey string) {
     me.api-key = apiKey
 }
 
+// Setting up Default Environment
+var Environment = MULTICLOUD
+
+// A map of environments and their corresponding servers/baseurls
+var EnvironmentsMap = map[Environments](map[Servers]string){
+
+    MULTICLOUD : map[Servers]string{
+        ENUM_DEFAULT:"https://neutrinoapi.net/",
+    },
+
+    AWS : map[Servers]string{
+        ENUM_DEFAULT:"https://aws.neutrinoapi.net/",
+    },
+
+    GCP : map[Servers]string{
+        ENUM_DEFAULT:"https://gcp.neutrinoapi.net/",
+    },
+
+    MSA : map[Servers]string{
+        ENUM_DEFAULT:"https://msa.neutrinoapi.net/",
+    },
+}
+ 
+// Make and return the map of parameters
+func GetBaseURIParameters(config CONFIGURATION) map[string]interface{} {
+     kvpMap := map[string]interface{}{
+    }
+    return kvpMap;
+}
+
+// Gets the URL for a particular alias in the current environment and appends it with template parameters
+// return the baseurl
+func GetBaseURI(server Servers, config CONFIGURATION) string {
+    url := EnvironmentsMap[Environment][server]
+    appendedURL, _ := apihelper_pkg.AppendUrlWithTemplateParameters(url, GetBaseURIParameters(config))
+    return appendedURL
+
+}

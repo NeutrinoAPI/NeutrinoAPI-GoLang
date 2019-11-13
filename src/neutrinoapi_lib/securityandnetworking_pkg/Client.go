@@ -34,7 +34,7 @@ func (me *SECURITYANDNETWORKING_IMPL) IPProbe (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
@@ -123,7 +123,7 @@ func (me *SECURITYANDNETWORKING_IMPL) EmailVerify (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
@@ -211,7 +211,7 @@ func (me *SECURITYANDNETWORKING_IMPL) IPBlocklist (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
@@ -300,7 +300,7 @@ func (me *SECURITYANDNETWORKING_IMPL) HostReputation (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl

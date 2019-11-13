@@ -97,6 +97,7 @@ type IPProbeResponse struct {
     AsDescription       string          `json:"asDescription" form:"asDescription"` //The autonomous system (AS) description / company name
     AsAge               int64           `json:"asAge" form:"asAge"` //The age of the autonomous system (AS) in number of years since registration
     HostDomain          string          `json:"hostDomain" form:"hostDomain"` //The IPs host domain
+    VpnDomain           string          `json:"vpnDomain" form:"vpnDomain"` //The domain of the VPN provider (may be empty if the VPN domain is not detectable)
 }
 
 /*
@@ -250,7 +251,7 @@ type IPBlocklistResponse struct {
     IsSpyware       bool            `json:"isSpyware" form:"isSpyware"` //IP is involved in distributing or is running spyware
     IsSpamBot       bool            `json:"isSpamBot" form:"isSpamBot"` //IP address is hosting a spam bot, comment spamming or any other spamming type software
     IsListed        bool            `json:"isListed" form:"isListed"` //Is this IP on a blocklist
-    IsVpn           bool            `json:"isVpn" form:"isVpn"` //IP has been detected as belonging to a VPN provider
+    IsVpn           bool            `json:"isVpn" form:"isVpn"` //IP belongs to a VPN provider. This field is only kept for backward compatibility, for VPN detection use the <a href="https://www.neutrinoapi.com/api/ip-probe/">IP Probe</a> API
     LastSeen        int64           `json:"lastSeen" form:"lastSeen"` //The last time this IP was seen on a blocklist (in Unix time or 0 if not listed recently)
     Blocklists      []string        `json:"blocklists" form:"blocklists"` //An array of strings indicating which blocklists this IP is listed on (empty if not listed)
     Sensors         []string        `json:"sensors" form:"sensors"` //An array of objects containing details on which sensors were used to detect this IP

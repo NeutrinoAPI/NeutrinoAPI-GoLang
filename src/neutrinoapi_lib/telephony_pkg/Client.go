@@ -34,7 +34,7 @@ func (me *TELEPHONY_IMPL) VerifySecurityCode (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
@@ -123,7 +123,7 @@ func (me *TELEPHONY_IMPL) HLRLookup (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
@@ -213,7 +213,7 @@ func (me *TELEPHONY_IMPL) PhonePlayback (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
@@ -309,7 +309,7 @@ func (me *TELEPHONY_IMPL) SMSVerify (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
@@ -404,7 +404,7 @@ func (me *TELEPHONY_IMPL) SMSMessage (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
@@ -503,7 +503,7 @@ func (me *TELEPHONY_IMPL) PhoneVerify (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl

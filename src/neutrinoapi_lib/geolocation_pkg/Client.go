@@ -40,7 +40,7 @@ func (me *GEOLOCATION_IMPL) GeocodeReverse (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
@@ -132,7 +132,7 @@ func (me *GEOLOCATION_IMPL) IPInfo (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
@@ -226,7 +226,7 @@ func (me *GEOLOCATION_IMPL) GeocodeAddress (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl

@@ -36,7 +36,7 @@ func (me *DATATOOLS_IMPL) EmailValidate (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
@@ -124,7 +124,7 @@ func (me *DATATOOLS_IMPL) UserAgentInfo (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
@@ -213,7 +213,7 @@ func (me *DATATOOLS_IMPL) BadWordFilter (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
@@ -305,7 +305,7 @@ func (me *DATATOOLS_IMPL) Convert (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
@@ -398,7 +398,7 @@ func (me *DATATOOLS_IMPL) PhoneValidate (
     //variable to hold errors
     var err error = nil
     //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
+    _queryBuilder := configuration_pkg.GetBaseURI(configuration_pkg.ENUM_DEFAULT,me.config);
 
     //prepare query string for API call
    _queryBuilder = _queryBuilder + _pathUrl
